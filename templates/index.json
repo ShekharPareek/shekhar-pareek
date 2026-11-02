@@ -106,70 +106,13 @@
     },
     "loomhaus_product_grid_gTRkya": {
       "type": "loomhaus-product-grid",
-      "blocks": {
-        "tile_XttXbc": {
-          "type": "tile",
-          "settings": {
-            "product": "",
-            "hotspot_x": 50,
-            "hotspot_y": 40
-          }
-        },
-        "tile_REBUTq": {
-          "type": "tile",
-          "settings": {
-            "product": "",
-            "hotspot_x": 50,
-            "hotspot_y": 40
-          }
-        },
-        "tile_MAx73P": {
-          "type": "tile",
-          "settings": {
-            "product": "",
-            "hotspot_x": 50,
-            "hotspot_y": 40
-          }
-        },
-        "tile_9TKJWn": {
-          "type": "tile",
-          "settings": {
-            "product": "",
-            "hotspot_x": 50,
-            "hotspot_y": 40
-          }
-        },
-        "tile_FfParN": {
-          "type": "tile",
-          "settings": {
-            "product": "",
-            "hotspot_x": 50,
-            "hotspot_y": 40
-          }
-        },
-        "tile_xW3kYn": {
-          "type": "tile",
-          "settings": {
-            "product": "",
-            "hotspot_x": 50,
-            "hotspot_y": 40
-          }
-        }
-      },
-      "block_order": [
-        "tile_XttXbc",
-        "tile_REBUTq",
-        "tile_MAx73P",
-        "tile_9TKJWn",
-        "tile_FfParN",
-        "tile_xW3kYn"
-      ],
       "name": "Loomhaus product grid",
       "settings": {
         "label": "Shop the look",
         "heading": "Loomhaus in the wild",
         "note": "Tap the + on any look to shop it.",
-        "bg_color": "#F6F1E7"
+        "bg_color": "#f6f1e7",
+        "collection": "best-products"
       }
     }
   },
