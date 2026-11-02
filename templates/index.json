@@ -114,7 +114,7 @@
             "product": "olive-green-jacket",
             "hotspot_x": 50,
             "hotspot_y": 40,
-            "product_2": "silk-summer-top",
+            "product_2": "",
             "hotspot_x_2": 57,
             "hotspot_y_2": 57
           }
@@ -134,8 +134,9 @@
         "tile_8kwKne": {
           "type": "tile",
           "settings": {
-            "product": "",
-            "hotspot_x": 50,
+            "image": "shopify://shop_images/1b9869f959ab1aabfad597562ed29ab2b152685a.jpg",
+            "product": "blue-silk-tuxedo",
+            "hotspot_x": 55,
             "hotspot_y": 40,
             "product_2": "",
             "hotspot_x_2": 70,
@@ -145,9 +146,10 @@
         "tile_YrmBaA": {
           "type": "tile",
           "settings": {
-            "product": "",
+            "image": "shopify://shop_images/3ddac1445558631e6ed553cdcfabec8caa882604.jpg",
+            "product": "striped-skirt-and-top",
             "hotspot_x": 50,
-            "hotspot_y": 40,
+            "hotspot_y": 55,
             "product_2": "",
             "hotspot_x_2": 70,
             "hotspot_y_2": 60
@@ -156,7 +158,8 @@
         "tile_LMz6NA": {
           "type": "tile",
           "settings": {
-            "product": "",
+            "image": "shopify://shop_images/eb17a3d7d9ed384d29b64ed838e192542a4ab835.jpg",
+            "product": "classic-leather-jacket",
             "hotspot_x": 50,
             "hotspot_y": 40,
             "product_2": "",
@@ -167,7 +170,8 @@
         "tile_E37T4K": {
           "type": "tile",
           "settings": {
-            "product": "",
+            "image": "shopify://shop_images/88d2399aa1c2b73dd162bcfdab7b6beb861c4ab7.jpg",
+            "product": "striped-silk-blouse",
             "hotspot_x": 50,
             "hotspot_y": 40,
             "product_2": "",
