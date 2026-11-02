@@ -38,7 +38,7 @@
       }
     },
     "header_section": {
-      "type": "header",
+      "type": "loomhaus-header",
       "blocks": {
         "header-logo": {
           "type": "_header-logo",

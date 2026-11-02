@@ -1,0 +1,126 @@
+{{ 'loomhaus-base.css' | asset_url | stylesheet_tag }}
+{{ 'loomhaus-image-with-text.css' | asset_url | stylesheet_tag }}
+{% render 'loomhaus-fonts' %}
+
+<section
+  class="lh-section lh-hero"
+  style="
+    --lh-hero-bg: {{ section.settings.bg_color }};
+    --lh-hero-pill-bg: {{ section.settings.pill_bg }};
+    --lh-hero-circle: {{ section.settings.circle_color }};
+  "
+  {{ section.shopify_attributes }}
+>
+  <div class="lh-hero__inner">
+
+    <div class="lh-hero__content">
+      {%- if section.settings.pill_text != blank -%}
+        <p class="lh-hero__pill">{{ section.settings.pill_text }}</p>
+      {%- endif -%}
+
+      <h1 class="lh-hero__title">{{ section.settings.title | newline_to_br }}</h1>
+
+      {%- if section.settings.description != blank -%}
+        <p class="lh-hero__text">{{ section.settings.description }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_text != blank -%}
+        <a class="lh-hero__button" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+          {{ section.settings.button_text }}
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+            <path d="M1 6h14M10 1l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="lh-hero__stats">
+          {%- for block in section.blocks -%}
+            <li class="lh-hero__stat" {{ block.shopify_attributes }}>
+              <strong>{{ block.settings.value }}</strong>
+              <span>{{ block.settings.label }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <div class="lh-hero__media">
+      <span class="lh-hero__circle" aria-hidden="true"></span>
+
+      <div class="lh-hero__arch">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1000 | image_tag:
+            widths: '400, 600, 800, 1000',
+            sizes: '(min-width: 990px) 520px, 90vw',
+            alt: section.settings.image.alt | default: section.settings.title,
+            loading: 'eager',
+            fetchpriority: 'high' }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'lh-hero__placeholder' }}
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.card_title != blank -%}
+        <div class="lh-hero__card">
+          {%- if section.settings.card_image != blank -%}
+            {{ section.settings.card_image | image_url: width: 120 | image_tag: width: 36, height: 36, alt: '', loading: 'lazy' }}
+          {%- endif -%}
+          <div>
+            <p class="lh-hero__card-title">{{ section.settings.card_title }}</p>
+            <p class="lh-hero__card-sub">{{ section.settings.card_subtitle }}</p>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Loomhaus hero",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "pill_text", "label": "Badge", "default": "New season · Autumn / Winter" },
+    { "type": "textarea", "id": "title", "label": "Heading", "default": "The Winter\nEdit" },
+    { "type": "textarea", "id": "description", "label": "Text", "default": "Warm layers, honest fabrics and fits that work every day. Discover the pieces our community wears on repeat this season." },
+    { "type": "text", "id": "button_text", "label": "Button label", "default": "Shop now" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+
+    { "type": "header", "content": "Hero image" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+
+    { "type": "header", "content": "Floating card" },
+    { "type": "image_picker", "id": "card_image", "label": "Card image" },
+    { "type": "text", "id": "card_title", "label": "Card title", "default": "Yellow Wool Jumper" },
+    { "type": "text", "id": "card_subtitle", "label": "Card subtitle", "default": "Bestseller this week" },
+
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#F6F1E7" },
+    { "type": "color", "id": "pill_bg", "label": "Badge background", "default": "#6B6F4E" },
+    { "type": "color", "id": "circle_color", "label": "Circle behind image", "default": "#E6DFD0" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "4.8★" },
+        { "type": "text", "id": "label", "label": "Label", "default": "2,000+ reviews" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loomhaus hero",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "4.8★", "label": "2,000+ reviews" } },
+        { "type": "stat", "settings": { "value": "100%", "label": "organic cotton" } },
+        { "type": "stat", "settings": { "value": "30 days", "label": "free returns" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
