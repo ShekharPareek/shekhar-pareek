@@ -11,34 +11,51 @@
   "type": "header",
   "name": "t:names.header",
   "sections": {
-    "header_announcements_9jGBFp": {
-      "type": "header-announcements",
+    "loomhaus_announcement_bar_AV4fCz": {
+      "type": "loomhaus-announcement-bar",
       "blocks": {
-        "announcement_BxgCk9": {
-          "type": "loomhaus-announcement-bar",
+        "message_bmBat9": {
+          "type": "message",
           "settings": {
-            "text": "Welcome to our store",
-            "font": "var(--font-subheading--family)",
-            "font_size": "0.75rem",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {
-    "m1": { "type": "message", "settings": { "text": "Free shipping on orders over ₹999" } },
-    "m2": { "type": "message", "settings": { "text": "Use code LOOM10 for 10% off your first order" } }
-  },
+            "text": "Free shipping on orders over ₹999"
+          }
+        },
+        "message_TytH4p": {
+          "type": "message",
+          "settings": {
+            "text": "Use code LOOM10 for 10% off your first order"
+          }
         }
       },
-     "block_order": ["m1", "m2"],
-      "name": "t:names.announcement_bar",
+      "block_order": [
+        "message_bmBat9",
+        "message_TytH4p"
+      ],
+      "name": "Loomhaus announcement bar",
       "settings": {
-        "bg_color": "#292A26",
-        "text_color": "#FFFFFF",
+        "bg_color": "#292a26",
+        "text_color": "#ffffff",
         "separator": "✦"
       }
     },
-    "header_section": {
+    "loomhaus_header_FTLEXG": {
       "type": "loomhaus-header",
+      "name": "Loomhaus header",
+      "settings": {
+        "logo_width": 120,
+        "logo_text": "Loomhaus",
+        "tagline": "Clothes made to be worn for years, not seasons.",
+        "button_label": "Shop the drop",
+        "button_link": "",
+        "bg_color": "#F6F1E7",
+        "text_color": "#292A26",
+        "button_bg": "#E6DFD0",
+        "button_text_color": "#292A26",
+        "count_bg": "#6B6F4E"
+      }
+    },
+    "header_section": {
+      "type": "header",
       "blocks": {
         "header-logo": {
           "type": "_header-logo",
@@ -75,6 +92,7 @@
           "blocks": {}
         }
       },
+      "disabled": true,
       "settings": {
         "logo_position": "left",
         "menu_position": "left",
@@ -123,6 +141,7 @@
   },
   "order": [
     "loomhaus_announcement_bar_AV4fCz",
+    "loomhaus_header_FTLEXG",
     "header_section"
   ]
 }
