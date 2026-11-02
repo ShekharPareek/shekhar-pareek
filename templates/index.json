@@ -99,15 +99,15 @@
       "settings": {
         "speed": 30,
         "mobile_items": "3",
-        "bg_color": "#6B6F4E",
-        "text_color": "#FFFFFF",
-        "icon_color": "#FFFFFF"
+        "bg_color": "#6b6f4e",
+        "text_color": "#ffffff",
+        "icon_color": "#ffffff"
       }
     },
-    "loomhaus_product_grid_FTFRTK": {
+    "loomhaus_product_grid_gTRkya": {
       "type": "loomhaus-product-grid",
       "blocks": {
-        "tile_yHCn8X": {
+        "tile_XttXbc": {
           "type": "tile",
           "settings": {
             "product": "",
@@ -115,7 +115,7 @@
             "hotspot_y": 40
           }
         },
-        "tile_6Gzfy6": {
+        "tile_REBUTq": {
           "type": "tile",
           "settings": {
             "product": "",
@@ -123,7 +123,7 @@
             "hotspot_y": 40
           }
         },
-        "tile_WY4fn9": {
+        "tile_MAx73P": {
           "type": "tile",
           "settings": {
             "product": "",
@@ -131,7 +131,7 @@
             "hotspot_y": 40
           }
         },
-        "tile_7G9gyM": {
+        "tile_9TKJWn": {
           "type": "tile",
           "settings": {
             "product": "",
@@ -139,7 +139,7 @@
             "hotspot_y": 40
           }
         },
-        "tile_ixbtqi": {
+        "tile_FfParN": {
           "type": "tile",
           "settings": {
             "product": "",
@@ -147,7 +147,7 @@
             "hotspot_y": 40
           }
         },
-        "tile_aBjHnN": {
+        "tile_xW3kYn": {
           "type": "tile",
           "settings": {
             "product": "",
@@ -157,12 +157,12 @@
         }
       },
       "block_order": [
-        "tile_yHCn8X",
-        "tile_6Gzfy6",
-        "tile_WY4fn9",
-        "tile_7G9gyM",
-        "tile_ixbtqi",
-        "tile_aBjHnN"
+        "tile_XttXbc",
+        "tile_REBUTq",
+        "tile_MAx73P",
+        "tile_9TKJWn",
+        "tile_FfParN",
+        "tile_xW3kYn"
       ],
       "name": "Loomhaus product grid",
       "settings": {
@@ -176,6 +176,6 @@
   "order": [
     "loomhaus_image_with_text_UiD4Rc",
     "loomhaus_marquee_QRxmLx",
-    "loomhaus_product_grid_FTFRTK"
+    "loomhaus_product_grid_gTRkya"
   ]
 }
