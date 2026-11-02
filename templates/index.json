@@ -119,13 +119,13 @@
             "hotspot_y_2": 57
           }
         },
-        "tile_hnweCx": {
+        "tile_LMz6NA": {
           "type": "tile",
           "settings": {
-            "image": "shopify://shop_images/6ce13bfdfd404b61906d6d1bf9358efcbd3625eb.jpg",
-            "product": "led-high-tops",
+            "image": "shopify://shop_images/eb17a3d7d9ed384d29b64ed838e192542a4ab835.jpg",
+            "product": "classic-leather-jacket",
             "hotspot_x": 50,
-            "hotspot_y": 57,
+            "hotspot_y": 40,
             "product_2": "",
             "hotspot_x_2": 70,
             "hotspot_y_2": 60
@@ -155,13 +155,13 @@
             "hotspot_y_2": 60
           }
         },
-        "tile_LMz6NA": {
+        "tile_hnweCx": {
           "type": "tile",
           "settings": {
-            "image": "shopify://shop_images/eb17a3d7d9ed384d29b64ed838e192542a4ab835.jpg",
-            "product": "classic-leather-jacket",
+            "image": "shopify://shop_images/6ce13bfdfd404b61906d6d1bf9358efcbd3625eb.jpg",
+            "product": "led-high-tops",
             "hotspot_x": 50,
-            "hotspot_y": 40,
+            "hotspot_y": 57,
             "product_2": "",
             "hotspot_x_2": 70,
             "hotspot_y_2": 60
@@ -182,10 +182,10 @@
       },
       "block_order": [
         "tile_AayRtM",
-        "tile_hnweCx",
+        "tile_LMz6NA",
         "tile_8kwKne",
         "tile_YrmBaA",
-        "tile_LMz6NA",
+        "tile_hnweCx",
         "tile_E37T4K"
       ],
       "name": "Loomhaus product grid",
