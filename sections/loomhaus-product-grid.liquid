@@ -1,6 +1,6 @@
+
 {{ 'loomhaus-base.css' | asset_url | stylesheet_tag }}
 {{ 'loomhaus-product-grid.css' | asset_url | stylesheet_tag }}
-
 
 <section
   class="lh-section lh-grid"
@@ -11,56 +11,107 @@
 
     <div class="lh-grid__head">
       <div>
-        {%- if section.settings.label != blank -%}
-          <p class="lh-grid__label">{{ section.settings.label }}</p>
-        {%- endif -%}
-        {%- if section.settings.heading != blank -%}
-          <h2 class="lh-grid__heading">{{ section.settings.heading }}</h2>
-        {%- endif -%}
+        {% if section.settings.label != blank %}
+          <p class="lh-grid__label">
+            {{ section.settings.label }}
+          </p>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="lh-grid__heading">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
       </div>
-      {%- if section.settings.note != blank -%}
-        <p class="lh-grid__note">{{ section.settings.note }}</p>
-      {%- endif -%}
+
+      {% if section.settings.note != blank %}
+        <p class="lh-grid__note">
+          {{ section.settings.note }}
+        </p>
+      {% endif %}
     </div>
 
     <ul class="lh-grid__tiles">
-      {%- for block in section.blocks -%}
-        {%- assign product = block.settings.product -%}
-        <li class="lh-grid__tile" {{ block.shopify_attributes }}>
-          {%- if product != blank -%}
-            {%- if product.featured_image != blank -%}
-              {{ product.featured_image | image_url: width: 900 | image_tag:
-                widths: '300, 450, 600, 900',
-                sizes: '(min-width: 990px) 30vw, 50vw',
-                alt: product.featured_image.alt | default: product.title,
-                loading: 'lazy',
-                class: 'lh-grid__img' }}
-            {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag: 'lh-grid__img' }}
-            {%- endif -%}
+      {% for block in section.blocks %}
+        {% assign product = block.settings.product %}
+        {% assign tile_image = block.settings.image %}
 
-            <button
-              type="button"
-              class="lh-grid__hotspot"
-              style="left: {{ block.settings.hotspot_x }}%; top: {{ block.settings.hotspot_y }}%;"
-              data-lh-quickview
-              data-handle="{{ product.handle }}"
-              aria-label="Quick view {{ product.title | escape }}"
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-            </button>
+        <li
+          class="lh-grid__tile"
+          {{ block.shopify_attributes }}
+        >
+          <div class="lh-grid__media">
 
-            <p class="lh-grid__pill">
-              <span>{{ product.title }}</span>
-              <strong>{{ product.price | money }}</strong>
-            </p>
-          {%- else -%}
-            <div class="lh-grid__empty">Select a product</div>
-          {%- endif -%}
+            {% if tile_image != blank %}
+              {{
+                tile_image
+                | image_url: width: 1200
+                | image_tag:
+                  widths: '300, 450, 600, 900, 1200',
+                  sizes: '(min-width: 990px) 30vw, 50vw',
+                  alt: tile_image.alt | default: 'Shop the look',
+                  loading: 'lazy',
+                  class: 'lh-grid__img'
+              }}
+            {% else %}
+              {{
+                'collection-1'
+                | placeholder_svg_tag: 'lh-grid__img'
+              }}
+            {% endif %}
+
+            {% if product != blank %}
+
+              <button
+                type="button"
+                class="lh-grid__hotspot"
+                style="
+                  left: {{ block.settings.hotspot_x }}%;
+                  top: {{ block.settings.hotspot_y }}%;
+                "
+                aria-label="View {{ product.title | escape }}"
+                aria-describedby="lh-pill-{{ section.id }}-{{ block.id }}"
+              >
+                <span class="lh-grid__hotspot-icon">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 1v10M1 6h10"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </span>
+
+                <span
+                  class="lh-grid__pill"
+                  id="lh-pill-{{ section.id }}-{{ block.id }}"
+                >
+                  <span class="lh-grid__pill-title">
+                    {{ product.title }}
+                  </span>
+
+                  <strong class="lh-grid__pill-price">
+                    {{ product.price | money }}
+                  </strong>
+                </span>
+              </button>
+
+            {% else %}
+              <div class="lh-grid__empty">
+                Select a product
+              </div>
+            {% endif %}
+
+          </div>
         </li>
-      {%- endfor -%}
+      {% endfor %}
     </ul>
 
   </div>
@@ -71,21 +122,74 @@
   "name": "Loomhaus product grid",
   "max_blocks": 6,
   "settings": [
-    { "type": "header", "content": "Heading row" },
-    { "type": "text", "id": "label", "label": "Small label", "default": "Shop the look" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Loomhaus in the wild" },
-    { "type": "text", "id": "note", "label": "Right side text", "default": "Tap the + on any look to shop it." },
-    { "type": "header", "content": "Colours" },
-    { "type": "color", "id": "bg_color", "label": "Background", "default": "#F6F1E7" }
+    {
+      "type": "header",
+      "content": "Heading row"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Small label",
+      "default": "Shop the look"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loomhaus in the wild"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Right side text",
+      "default": "Tap the + on any look to shop it."
+    },
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#F6F1E7"
+    }
   ],
   "blocks": [
     {
       "type": "tile",
-      "name": "Tile",
+      "name": "Image with product",
       "settings": [
-        { "type": "product", "id": "product", "label": "Product" },
-        { "type": "range", "id": "hotspot_x", "label": "Hotspot position: left", "min": 5, "max": 95, "step": 1, "unit": "%", "default": 50 },
-        { "type": "range", "id": "hotspot_y", "label": "Hotspot position: top", "min": 5, "max": 95, "step": 1, "unit": "%", "default": 40 }
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Tile image"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        },
+        {
+          "type": "range",
+          "id": "hotspot_x",
+          "label": "Hotspot position: left",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "hotspot_y",
+          "label": "Hotspot position: top",
+          "min": 5,
+          "max": 95,
+          "step": 1,
+          "unit": "%",
+          "default": 40
+        }
       ]
     }
   ],
@@ -93,8 +197,12 @@
     {
       "name": "Loomhaus product grid",
       "blocks": [
-        { "type": "tile" }, { "type": "tile" }, { "type": "tile" },
-        { "type": "tile" }, { "type": "tile" }, { "type": "tile" }
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" },
+        { "type": "tile" }
       ]
     }
   ]
