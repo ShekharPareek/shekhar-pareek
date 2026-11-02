@@ -113,7 +113,10 @@
             "image": "shopify://shop_images/loomhaus-striped-skirt-and-top-white.jpg",
             "product": "olive-green-jacket",
             "hotspot_x": 50,
-            "hotspot_y": 40
+            "hotspot_y": 40,
+            "product_2": "classic-leather-jacket",
+            "hotspot_x_2": 47,
+            "hotspot_y_2": 21
           }
         },
         "tile_hnweCx": {
@@ -121,7 +124,10 @@
           "settings": {
             "product": "",
             "hotspot_x": 50,
-            "hotspot_y": 40
+            "hotspot_y": 40,
+            "product_2": "",
+            "hotspot_x_2": 70,
+            "hotspot_y_2": 60
           }
         },
         "tile_8kwKne": {
@@ -129,7 +135,10 @@
           "settings": {
             "product": "",
             "hotspot_x": 50,
-            "hotspot_y": 40
+            "hotspot_y": 40,
+            "product_2": "",
+            "hotspot_x_2": 70,
+            "hotspot_y_2": 60
           }
         },
         "tile_YrmBaA": {
@@ -137,7 +146,10 @@
           "settings": {
             "product": "",
             "hotspot_x": 50,
-            "hotspot_y": 40
+            "hotspot_y": 40,
+            "product_2": "",
+            "hotspot_x_2": 70,
+            "hotspot_y_2": 60
           }
         },
         "tile_LMz6NA": {
@@ -145,7 +157,10 @@
           "settings": {
             "product": "",
             "hotspot_x": 50,
-            "hotspot_y": 40
+            "hotspot_y": 40,
+            "product_2": "",
+            "hotspot_x_2": 70,
+            "hotspot_y_2": 60
           }
         },
         "tile_E37T4K": {
@@ -153,7 +168,10 @@
           "settings": {
             "product": "",
             "hotspot_x": 50,
-            "hotspot_y": 40
+            "hotspot_y": 40,
+            "product_2": "",
+            "hotspot_x_2": 70,
+            "hotspot_y_2": 60
           }
         }
       },
