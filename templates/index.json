@@ -106,13 +106,71 @@
     },
     "loomhaus_product_grid_gTRkya": {
       "type": "loomhaus-product-grid",
+      "blocks": {
+        "tile_AayRtM": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/loomhaus-striped-skirt-and-top-white.jpg",
+            "product": "olive-green-jacket",
+            "hotspot_x": 50,
+            "hotspot_y": 40
+          }
+        },
+        "tile_hnweCx": {
+          "type": "tile",
+          "settings": {
+            "product": "",
+            "hotspot_x": 50,
+            "hotspot_y": 40
+          }
+        },
+        "tile_8kwKne": {
+          "type": "tile",
+          "settings": {
+            "product": "",
+            "hotspot_x": 50,
+            "hotspot_y": 40
+          }
+        },
+        "tile_YrmBaA": {
+          "type": "tile",
+          "settings": {
+            "product": "",
+            "hotspot_x": 50,
+            "hotspot_y": 40
+          }
+        },
+        "tile_LMz6NA": {
+          "type": "tile",
+          "settings": {
+            "product": "",
+            "hotspot_x": 50,
+            "hotspot_y": 40
+          }
+        },
+        "tile_E37T4K": {
+          "type": "tile",
+          "settings": {
+            "product": "",
+            "hotspot_x": 50,
+            "hotspot_y": 40
+          }
+        }
+      },
+      "block_order": [
+        "tile_AayRtM",
+        "tile_hnweCx",
+        "tile_8kwKne",
+        "tile_YrmBaA",
+        "tile_LMz6NA",
+        "tile_E37T4K"
+      ],
       "name": "Loomhaus product grid",
       "settings": {
         "label": "Shop the look",
         "heading": "Loomhaus in the wild",
         "note": "Tap the + on any look to shop it.",
-        "bg_color": "#f6f1e7",
-        "collection": "best-products"
+        "bg_color": "#f6f1e7"
       }
     }
   },
