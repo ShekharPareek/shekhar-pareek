@@ -1,0 +1,86 @@
+{{ 'loomhaus-base.css' | asset_url | stylesheet_tag }}
+{{ 'loomhaus-marquee.css' | asset_url | stylesheet_tag }}
+
+{%- if section.blocks.size > 0 -%}
+  <section
+    class="lh-section lh-marquee"
+    style="
+      --lh-mq-bg: {{ section.settings.bg_color }};
+      --lh-mq-text: {{ section.settings.text_color }};
+      --lh-mq-icon: {{ section.settings.icon_color }};
+      --lh-mq-speed: {{ section.settings.speed }}s;
+      --lh-mq-mobile-items: {{ section.settings.mobile_items }};
+    "
+    {{ section.shopify_attributes }}
+  >
+    <div class="lh-marquee__track">
+      {%- for i in (1..2) -%}
+        <ul class="lh-marquee__group"{% if i == 2 %} aria-hidden="true"{% endif %}>
+          {%- for block in section.blocks -%}
+            <li class="lh-marquee__item" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
+              <span class="lh-marquee__text">{{ block.settings.text }}</span>
+              <span class="lh-marquee__icon" aria-hidden="true">
+                {%- if section.settings.icon != blank -%}
+                  {{ section.settings.icon | image_url: width: 48 | image_tag: width: 14, height: 14, alt: '', loading: 'lazy' }}
+                {%- else -%}
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c.8 6.7 5.3 11.2 12 12-6.7.8-11.2 5.3-12 12-.8-6.7-5.3-11.2-12-12C6.7 11.2 11.2 6.7 12 0z"/>
+                  </svg>
+                {%- endif -%}
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Loomhaus marquee",
+  "settings": [
+    { "type": "header", "content": "Behaviour" },
+    { "type": "range", "id": "speed", "label": "Loop duration (higher = slower)", "min": 10, "max": 80, "step": 5, "unit": "s", "default": 30 },
+    {
+      "type": "select",
+      "id": "mobile_items",
+      "label": "Items visible at once on mobile",
+      "options": [
+        { "value": "2", "label": "2 items" },
+        { "value": "3", "label": "3 items" }
+      ],
+      "default": "3"
+    },
+
+    { "type": "header", "content": "Icon" },
+    { "type": "image_picker", "id": "icon", "label": "Icon image (optional, default is ✦ star)" },
+
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#6B6F4E" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#FFFFFF" },
+    { "type": "color", "id": "icon_color", "label": "Icon", "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Organic cotton" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loomhaus marquee",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Organic cotton" } },
+        { "type": "item", "settings": { "text": "Made to last" } },
+        { "type": "item", "settings": { "text": "Sizes XS to L" } },
+        { "type": "item", "settings": { "text": "Free returns" } },
+        { "type": "item", "settings": { "text": "Ethically made" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

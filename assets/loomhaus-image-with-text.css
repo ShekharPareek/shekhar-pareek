@@ -141,9 +141,10 @@
 }
 
 .lh-hero__card img {
+ 
   border-radius: 50%;
-  object-fit: cover;
-}
+    object-fit: contain;
+    width: 40px;
 
 .lh-hero__card-title {
   margin: 0;
