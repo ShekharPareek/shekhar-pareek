@@ -61,17 +61,25 @@
         {%- endif -%}
       </div>
 
-      {%- if section.settings.card_title != blank -%}
-        <div class="lh-hero__card">
-          {%- if section.settings.card_image != blank -%}
-            {{ section.settings.card_image | image_url: width: 120 | image_tag: width: 36, height: 36, alt: '', loading: 'lazy' }}
-          {%- endif -%}
-          <div>
-            <p class="lh-hero__card-title">{{ section.settings.card_title }}</p>
-            <p class="lh-hero__card-sub">{{ section.settings.card_subtitle }}</p>
-          </div>
-        </div>
+     {%- assign card_product = section.settings.card_product -%}
+
+{%- if card_product != blank -%}
+  <a class="lh-hero__card" href="{{ card_product.url }}">
+    {%- if card_product.featured_image != blank -%}
+      {{ card_product.featured_image | image_url: width: 120 | image_tag:
+        width: 36,
+        height: 36,
+        alt: card_product.title,
+        loading: 'lazy' }}
+    {%- endif -%}
+    <div>
+      <p class="lh-hero__card-title">{{ card_product.title }}</p>
+      {%- if section.settings.card_subtitle != blank -%}
+        <p class="lh-hero__card-sub">{{ section.settings.card_subtitle }}</p>
       {%- endif -%}
+    </div>
+  </a>
+{%- endif -%}
     </div>
 
   </div>
@@ -79,7 +87,7 @@
 
 {% schema %}
 {
-  "name": "Loomhaus hero",
+  "name": "Loomhaus image with text",
   "max_blocks": 4,
   "settings": [
     { "type": "header", "content": "Content" },
@@ -93,9 +101,8 @@
     { "type": "image_picker", "id": "image", "label": "Image" },
 
     { "type": "header", "content": "Floating card" },
-    { "type": "image_picker", "id": "card_image", "label": "Card image" },
-    { "type": "text", "id": "card_title", "label": "Card title", "default": "Yellow Wool Jumper" },
-    { "type": "text", "id": "card_subtitle", "label": "Card subtitle", "default": "Bestseller this week" },
+   { "type": "product", "id": "card_product", "label": "Product (Yellow Wool Jumper)" },
+{ "type": "text", "id": "card_subtitle", "label": "Card subtitle", "default": "Bestseller this week" },
 
     { "type": "header", "content": "Colours" },
     { "type": "color", "id": "bg_color", "label": "Background", "default": "#F6F1E7" },
@@ -114,7 +121,7 @@
   ],
   "presets": [
     {
-      "name": "Loomhaus hero",
+      "name": "Loomhaus image with text",
       "blocks": [
         { "type": "stat", "settings": { "value": "4.8★", "label": "2,000+ reviews" } },
         { "type": "stat", "settings": { "value": "100%", "label": "organic cotton" } },
