@@ -252,7 +252,6 @@
 
 
 /* Hide both product pills by default */
-.lh-grid__pill--1,
 .lh-grid__pill--2 {
   opacity: 0;
   visibility: hidden;

@@ -69,7 +69,9 @@
 
 {% if product_1 != blank %}
 
-  <button
+  <a
+      href="{{ product_1.url }}"
+
     type="button"
     class="lh-grid__hotspot lh-grid__hotspot--1"
     style="
@@ -92,7 +94,7 @@
         stroke-linecap="round"
       />
     </svg>
-  </button>
+</a>
 
   <div class="lh-grid__pill lh-grid__pill--1">
     <span>{{ product_1.title }}</span>
@@ -104,7 +106,8 @@
 
 {% if product_2 != blank %}
 
-  <button
+  <a
+    href="{{ product_2.url }}"
     type="button"
     class="lh-grid__hotspot lh-grid__hotspot--2"
     style="
@@ -127,7 +130,7 @@
         stroke-linecap="round"
       />
     </svg>
-  </button>
+</a>
 
   <div class="lh-grid__pill lh-grid__pill--2">
     <span>{{ product_2.title }}</span>
