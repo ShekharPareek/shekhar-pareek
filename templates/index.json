@@ -110,21 +110,22 @@
         "tile_AayRtM": {
           "type": "tile",
           "settings": {
-            "image": "shopify://shop_images/loomhaus-striped-skirt-and-top-white.jpg",
+            "image": "shopify://shop_images/b02871517aa3d6e0c6fde9d36f536809f3ffc61b.jpg",
             "product": "olive-green-jacket",
             "hotspot_x": 50,
             "hotspot_y": 40,
-            "product_2": "classic-leather-jacket",
-            "hotspot_x_2": 47,
-            "hotspot_y_2": 21
+            "product_2": "silk-summer-top",
+            "hotspot_x_2": 57,
+            "hotspot_y_2": 57
           }
         },
         "tile_hnweCx": {
           "type": "tile",
           "settings": {
-            "product": "",
+            "image": "shopify://shop_images/6ce13bfdfd404b61906d6d1bf9358efcbd3625eb.jpg",
+            "product": "led-high-tops",
             "hotspot_x": 50,
-            "hotspot_y": 40,
+            "hotspot_y": 57,
             "product_2": "",
             "hotspot_x_2": 70,
             "hotspot_y_2": 60
