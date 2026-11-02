@@ -63,40 +63,78 @@
             {% if product != blank %}
 
              
-<button
-  type="button"
-  class="lh-grid__hotspot"
-  style="
-    left: {{ block.settings.hotspot_x }}%;
-    top: {{ block.settings.hotspot_y }}%;
-  "
-  aria-label="Show {{ product.title | escape }}"
->
-  <svg
-    width="12"
-    height="12"
-    viewBox="0 0 12 12"
-    fill="none"
-    aria-hidden="true"
+
+{% assign product_1 = block.settings.product %}
+{% assign product_2 = block.settings.product_2 %}
+
+{% if product_1 != blank %}
+
+  <button
+    type="button"
+    class="lh-grid__hotspot lh-grid__hotspot--1"
+    style="
+      left: {{ block.settings.hotspot_x }}%;
+      top: {{ block.settings.hotspot_y }}%;
+    "
+    aria-label="View {{ product_1.title | escape }}"
   >
-    <path
-      d="M6 1v10M1 6h10"
-      stroke="currentColor"
-      stroke-width="1.6"
-      stroke-linecap="round"
-    />
-  </svg>
-</button>
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M6 1v10M1 6h10"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+      />
+    </svg>
+  </button>
 
-<div class="lh-grid__pill">
-  <span class="lh-grid__pill-title">
-    {{ product.title }}
-  </span>
+  <div class="lh-grid__pill lh-grid__pill--1">
+    <span>{{ product_1.title }}</span>
+    <strong>{{ product_1.price | money }}</strong>
+  </div>
 
-  <strong class="lh-grid__pill-price">
-    {{ product.price | money }}
-  </strong>
-</div>
+{% endif %}
+
+
+{% if product_2 != blank %}
+
+  <button
+    type="button"
+    class="lh-grid__hotspot lh-grid__hotspot--2"
+    style="
+      left: {{ block.settings.hotspot_x_2 }}%;
+      top: {{ block.settings.hotspot_y_2 }}%;
+    "
+    aria-label="View {{ product_2.title | escape }}"
+  >
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M6 1v10M1 6h10"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+      />
+    </svg>
+  </button>
+
+  <div class="lh-grid__pill lh-grid__pill--2">
+    <span>{{ product_2.title }}</span>
+    <strong>{{ product_2.price | money }}</strong>
+  </div>
+
+{% endif %}
 
 
             {% else %}
@@ -151,44 +189,79 @@
       "default": "#F6F1E7"
     }
   ],
-  "blocks": [
-    {
-      "type": "tile",
-      "name": "Image with product",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Tile image"
-        },
-        {
-          "type": "product",
-          "id": "product",
-          "label": "Select product"
-        },
-        {
-          "type": "range",
-          "id": "hotspot_x",
-          "label": "Hotspot position: left",
-          "min": 5,
-          "max": 95,
-          "step": 1,
-          "unit": "%",
-          "default": 50
-        },
-        {
-          "type": "range",
-          "id": "hotspot_y",
-          "label": "Hotspot position: top",
-          "min": 5,
-          "max": 95,
-          "step": 1,
-          "unit": "%",
-          "default": 40
-        }
-      ]
-    }
-  ],
+ 
+"blocks": [
+  {
+    "type": "tile",
+    "name": "Image with products",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Tile image"
+      },
+      {
+        "type": "header",
+        "content": "Hotspot 1"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Select product 1"
+      },
+      {
+        "type": "range",
+        "id": "hotspot_x",
+        "label": "Product 1: Left",
+        "min": 5,
+        "max": 95,
+        "step": 1,
+        "unit": "%",
+        "default": 50
+      },
+      {
+        "type": "range",
+        "id": "hotspot_y",
+        "label": "Product 1: Top",
+        "min": 5,
+        "max": 95,
+        "step": 1,
+        "unit": "%",
+        "default": 40
+      },
+      {
+        "type": "header",
+        "content": "Hotspot 2"
+      },
+      {
+        "type": "product",
+        "id": "product_2",
+        "label": "Select product 2"
+      },
+      {
+        "type": "range",
+        "id": "hotspot_x_2",
+        "label": "Product 2: Left",
+        "min": 5,
+        "max": 95,
+        "step": 1,
+        "unit": "%",
+        "default": 70
+      },
+      {
+        "type": "range",
+        "id": "hotspot_y_2",
+        "label": "Product 2: Top",
+        "min": 5,
+        "max": 95,
+        "step": 1,
+        "unit": "%",
+        "default": 60
+      }
+    ]
+  }
+],
+
   "presets": [
     {
       "name": "Loomhaus product grid",

@@ -249,6 +249,36 @@
   opacity: 0.5;
 }
 
+
+
+/* Hide both product pills by default */
+.lh-grid__pill--1,
+.lh-grid__pill--2 {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Show product 1 pill when hotspot 1 is hovered */
+.lh-grid__tile:has(.lh-grid__hotspot--1:hover)
+.lh-grid__pill--1,
+.lh-grid__tile:has(.lh-grid__hotspot--1:focus-visible)
+.lh-grid__pill--1 {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Show product 2 pill when hotspot 2 is hovered */
+.lh-grid__tile:has(.lh-grid__hotspot--2:hover)
+.lh-grid__pill--2,
+.lh-grid__tile:has(.lh-grid__hotspot--2:focus-visible)
+.lh-grid__pill--2 {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+
 /* =========================================
    TABLET
 ========================================= */
