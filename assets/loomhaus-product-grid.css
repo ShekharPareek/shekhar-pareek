@@ -1,14 +1,27 @@
+
+/* =========================================
+   LOOMHAUS PRODUCT GRID
+========================================= */
+
 .lh-grid {
   background: var(--lh-grid-bg, #F6F1E7);
   color: var(--lh-color-text-main);
   font-family: var(--lh-font-body);
 }
 
+/* =========================================
+   SECTION CONTAINER
+========================================= */
+
 .lh-grid__inner {
   max-width: 1440px;
   margin: 0 auto;
   padding: 72px 80px;
 }
+
+/* =========================================
+   SECTION HEADING
+========================================= */
 
 .lh-grid__head {
   display: flex;
@@ -41,9 +54,13 @@
   opacity: 0.65;
 }
 
+/* =========================================
+   PRODUCT GRID
+========================================= */
+
 .lh-grid__tiles {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin: 0;
   padding: 0;
@@ -52,10 +69,23 @@
 
 .lh-grid__tile {
   position: relative;
- 
-  border-radius: 20px;
+  min-width: 0;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
   overflow: hidden;
   background: #efe9dc;
+}
+
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
+
+.lh-grid__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 .lh-grid__img {
@@ -63,84 +93,232 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
-/* Hotspot (+) */
+/* =========================================
+   HOTSPOT (+ BUTTON)
+========================================= */
+
 .lh-grid__hotspot {
   position: absolute;
-  z-index: 2;
-  left: var(--hotspot-x);
-  top: var(--hotspot-y);
+  z-index: 3;
+
+  /* Position comes from Liquid inline styles */
   transform: translate(-50%, -50%);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+
+  width: 28px;
+  height: 28px;
   padding: 0;
+
   border: 0;
   border-radius: 50%;
+
   background: #fff;
   color: #111;
+
   cursor: pointer;
+
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.lh-grid__hotspot svg {
+  display: block;
+  flex-shrink: 0;
 }
 
 .lh-grid__hotspot:hover,
 .lh-grid__hotspot:focus-visible {
   transform: translate(-50%, -50%) scale(1.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
 
-/* Label (name + price) */
-/* Product pill - always visible */
+.lh-grid__hotspot:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 3px;
+}
+
+/* =========================================
+   PRODUCT PILL
+   Hidden by default
+========================================= */
+
 .lh-grid__pill {
   position: absolute;
-  left: 10px;
-  bottom: 10px;
-  z-index: 3;
+  left: 8px;
+  bottom: 8px;
+  z-index: 4;
+
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 6px;
+
   width: max-content;
-  max-width: calc(100% - 20px);
-  padding: 5px 10px;
+  max-width: calc(100% - 16px);
+
+  padding: 5px 9px;
+
   border-radius: 20px;
+
   background: #fff;
   color: #222;
+
   font-size: 10px;
   line-height: 1.4;
   font-weight: 400;
+
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(5px);
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
 }
+
+/* Product title */
+
 .lh-grid__pill span {
+  display: block;
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
   font-weight: 500;
 }
 
+/* Product price */
+
 .lh-grid__pill strong {
+  display: block;
+  flex-shrink: 0;
+
   white-space: nowrap;
+
   font-weight: 600;
 }
+
+/* =========================================
+   SHOW PILL ON HOTSPOT HOVER
+========================================= */
+
+/* Mouse hover */
+
+.lh-grid__tile:has(.lh-grid__hotspot:hover) .lh-grid__pill {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Keyboard focus */
+
+.lh-grid__tile:has(.lh-grid__hotspot:focus-visible) .lh-grid__pill {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* =========================================
+   EMPTY PRODUCT PLACEHOLDER
+========================================= */
 
 .lh-grid__empty {
   display: flex;
   align-items: center;
   justify-content: center;
+
   height: 100%;
+
   font-size: 13px;
   opacity: 0.5;
 }
 
+/* =========================================
+   TABLET
+========================================= */
+
 @media (max-width: 989px) {
-  .lh-grid__inner { padding: 48px 24px; }
-  .lh-grid__heading { font-size: 36px; }
+  .lh-grid__inner {
+    padding: 48px 24px;
+  }
+
+  .lh-grid__heading {
+    font-size: 36px;
+  }
+
+  .lh-grid__tiles {
+    gap: 12px;
+  }
 }
 
+/* =========================================
+   MOBILE
+========================================= */
+
 @media (max-width: 749px) {
-  .lh-grid__inner { padding: 32px 16px; }
-  .lh-grid__head { flex-direction: column; align-items: flex-start; }
-  .lh-grid__heading { font-size: 28px; }
-  .lh-grid__tiles { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .lh-grid__inner {
+    padding: 32px 16px;
+  }
+
+  .lh-grid__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lh-grid__heading {
+    font-size: 28px;
+  }
+
+  .lh-grid__tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .lh-grid__tile {
+    border-radius: 10px;
+  }
+
+  .lh-grid__hotspot {
+    width: 28px;
+    height: 28px;
+  }
+
+  .lh-grid__pill {
+    left: 6px;
+    bottom: 6px;
+
+    max-width: calc(100% - 12px);
+
+    gap: 4px;
+    padding: 4px 7px;
+
+    font-size: 9px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .lh-grid__hotspot,
+  .lh-grid__pill {
+    transition: none;
+  }
 }
