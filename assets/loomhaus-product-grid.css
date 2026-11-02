@@ -52,8 +52,8 @@
 
 .lh-grid__tile {
   position: relative;
-  aspect-ratio: 4 / 5;
-  border-radius: 16px;
+ 
+  border-radius: 20px;
   overflow: hidden;
   background: #efe9dc;
 }
