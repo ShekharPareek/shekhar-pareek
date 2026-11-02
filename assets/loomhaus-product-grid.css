@@ -251,13 +251,20 @@
 
 
 
-/* Hide both product pills by default */
+/* Hide Pill 2 by default */
 .lh-grid__pill--2 {
   opacity: 0;
   visibility: hidden;
 }
 
-/* Show product 1 pill when hotspot 1 is hovered */
+/* Show Pill 1 by default */
+.lh-grid__pill--1 {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Show Pill 1 when Hotspot 1 is hovered or focused */
 .lh-grid__tile:has(.lh-grid__hotspot--1:hover)
 .lh-grid__pill--1,
 .lh-grid__tile:has(.lh-grid__hotspot--1:focus-visible)
@@ -267,7 +274,7 @@
   transform: translateY(0);
 }
 
-/* Show product 2 pill when hotspot 2 is hovered */
+/* Show Pill 2 when Hotspot 2 is hovered or focused */
 .lh-grid__tile:has(.lh-grid__hotspot--2:hover)
 .lh-grid__pill--2,
 .lh-grid__tile:has(.lh-grid__hotspot--2:focus-visible)
@@ -277,6 +284,14 @@
   transform: translateY(0);
 }
 
+/* Hide Pill 1 when Hotspot 2 is active */
+.lh-grid__tile:has(.lh-grid__hotspot--2:hover)
+.lh-grid__pill--1,
+.lh-grid__tile:has(.lh-grid__hotspot--2:focus-visible)
+.lh-grid__pill--1 {
+  opacity: 0;
+  visibility: hidden;
+}
 
 /* =========================================
    TABLET
