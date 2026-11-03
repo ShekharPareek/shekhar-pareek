@@ -213,6 +213,13 @@
             "text": "Best Fit"
           }
         },
+        "swatch_LjRHdz": {
+          "type": "swatch",
+          "settings": {
+            "name": "black",
+            "color": "#1a1a1a"
+          }
+        },
         "offer_HHJzR8": {
           "type": "offer",
           "settings": {
@@ -233,6 +240,7 @@
       "block_order": [
         "ribbon_4HMkYp",
         "ribbon_VF8y3q",
+        "swatch_LjRHdz",
         "offer_HHJzR8",
         "offer_ABNRfk"
       ],
@@ -245,7 +253,7 @@
         "tax_text": "MRP inclusive of all taxes",
         "highlight_title": "Keeps its shape after 50+ washes",
         "highlight_text": "Heavyweight 320 GSM cotton, tested in our lab. See test results",
-        "bg_color": "#F6F1E7"
+        "bg_color": "#f6f1e7"
       }
     }
   },
