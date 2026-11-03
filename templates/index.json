@@ -213,13 +213,6 @@
             "text": "Best Fit"
           }
         },
-        "swatch_LjRHdz": {
-          "type": "swatch",
-          "settings": {
-            "name": "black",
-            "color": "#1a1a1a"
-          }
-        },
         "offer_HHJzR8": {
           "type": "offer",
           "settings": {
@@ -240,7 +233,6 @@
       "block_order": [
         "ribbon_4HMkYp",
         "ribbon_VF8y3q",
-        "swatch_LjRHdz",
         "offer_HHJzR8",
         "offer_ABNRfk"
       ],
