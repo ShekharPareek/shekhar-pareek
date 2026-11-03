@@ -113,53 +113,32 @@
         {%- endif -%}
 
         <!-- Options (colour swatches + size pills) -->
-        {%- for option in product.options_with_values -%}
-          {%- assign opt_name = option.name | downcase -%}
-          {%- assign opt_index = forloop.index0 -%}
-          {%- assign chosen = current.options[opt_index] -%}
-          <fieldset class="lh-fp__option" data-fp-option="{{ opt_index }}">
-            <legend>
-              {{ option.name }}{% if opt_name contains 'colo' %}: <span data-fp-chosen>{{ chosen }}</span>{% endif %}
-            </legend>
-            <div class="lh-fp__choices">
-              {%- for value in option.values -%}
-                {%- assign input_id = 'fp-' | append: section.id | append: '-' | append: opt_index | append: '-' | append: forloop.index -%}
-                {%- assign value_down = value | downcase -%}
+       {%- for option in product.options_with_values -%}
+  {%- assign opt_name = option.name | downcase -%}
+  {%- assign opt_index = forloop.index0 -%}
+  {%- assign chosen = current.options[opt_index] -%}
+  <fieldset class="lh-fp__option" data-fp-option="{{ opt_index }}">
+    <legend>
+      {{ option.name }}{% if opt_name contains 'colo' %}: <span data-fp-chosen>{{ chosen }}</span>{% endif %}
+    </legend>
+    <div class="lh-fp__choices">
+      {%- for value in option.values -%}
+        {%- assign input_id = 'fp-' | append: section.id | append: '-' | append: opt_index | append: '-' | append: forloop.index -%}
 
-                {%- if opt_name contains 'colo' -%}
-                  {%- assign swatch_color = value -%}
-                  {%- for sw in swatches -%}
-                    {%- assign sw_name = sw.settings.name | downcase -%}
-                    {%- if sw_name == value_down -%}
-                      {%- assign swatch_color = sw.settings.color -%}
-                    {%- endif -%}
-                  {%- endfor -%}
+        <input type="radio" id="{{ input_id }}" name="{{ section.id }}-opt-{{ opt_index }}" value="{{ value | escape }}" {% if value == chosen %}checked{% endif %}>
 
-                  <input type="radio" id="{{ input_id }}" name="{{ section.id }}-opt-{{ opt_index }}" value="{{ value | escape }}" {% if value == chosen %}checked{% endif %}>
-                  <label for="{{ input_id }}" class="lh-fp__swatch" title="{{ value | escape }}">
-                    <span style="background: {{ swatch_color }};"></span>
-                    <span class="visually-hidden">{{ value }}</span>
-                  </label>
-
-                {%- else -%}
-                  {%- assign ribbon_text = '' -%}
-                  {%- for r in ribbons -%}
-                    {%- assign r_size = r.settings.size | downcase -%}
-                    {%- if r_size == value_down -%}
-                      {%- assign ribbon_text = r.settings.text -%}
-                    {%- endif -%}
-                  {%- endfor -%}
-
-                  <input type="radio" id="{{ input_id }}" name="{{ section.id }}-opt-{{ opt_index }}" value="{{ value | escape }}" {% if value == chosen %}checked{% endif %}>
-                  <label for="{{ input_id }}" class="lh-fp__pill">
-                    {%- if ribbon_text != blank -%}<em class="lh-fp__ribbon">{{ ribbon_text }}</em>{%- endif -%}
-                    {{ value }}
-                  </label>
-                {%- endif -%}
-              {%- endfor -%}
-            </div>
-          </fieldset>
-        {%- endfor -%}
+        {%- if opt_name contains 'color' -%}
+          <label for="{{ input_id }}" class="lh-fp__swatch" title="{{ value | escape }}">
+            <span style="background: {{ value | handleize | remove: '-' }};"></span>
+            <span class="visually-hidden">{{ value }}</span>
+          </label>
+        {%- else -%}
+          <label for="{{ input_id }}" class="lh-fp__pill">{{ value }}</label>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </fieldset>
+{%- endfor -%}
 
         <!-- Quantity + buttons -->
         <div class="lh-fp__buy">
