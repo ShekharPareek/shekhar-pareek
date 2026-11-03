@@ -111,7 +111,38 @@
             </div>
           </div>
         {%- endif -%}
-<p>{{ product.options }}</p>
+{%- for option in product.options_with_values -%}
+  {%- assign opt_name = option.name | downcase -%}
+  {%- assign opt_index = forloop.index0 -%}
+  {%- assign chosen = current.options[opt_index] -%}
+  <fieldset class="lh-fp__option" data-fp-option="{{ opt_index }}">
+    <legend>
+      {{ option.name }}{% if opt_name contains 'colo' %}: <span data-fp-chosen>{{ chosen }}</span>{% endif %}
+    </legend>
+    <div class="lh-fp__choices">
+      {%- for value in option.values -%}
+        {%- assign input_id = 'fp-' | append: section.id | append: '-' | append: opt_index | append: '-' | append: forloop.index -%}
+
+        <input type="radio" id="{{ input_id }}" name="{{ section.id }}-opt-{{ opt_index }}" value="{{ value.name | escape }}" {% if value.name == chosen %}checked{% endif %}>
+
+        {%- if opt_name contains 'colo' -%}
+          <label for="{{ input_id }}" class="lh-fp__swatch" title="{{ value.name | escape }}">
+            {%- if value.swatch.color != blank -%}
+              <span style="background: {{ value.swatch.color }};"></span>
+            {%- elsif value.swatch.image != blank -%}
+              <span style="background: url({{ value.swatch.image | image_url: width: 48 }}) center / cover;"></span>
+            {%- else -%}
+              <span style="background: {{ value.name | replace: ' ', '' }};"></span>
+            {%- endif -%}
+            <span class="visually-hidden">{{ value.name }}</span>
+          </label>
+        {%- else -%}
+          <label for="{{ input_id }}" class="lh-fp__pill">{{ value.name }}</label>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </fieldset>
+{%- endfor -%}
         <!-- Options (colour swatches + size pills) -->
        {% comment %} {%- for option in product.options_with_values -%}
   {%- assign opt_name = option.name | downcase -%}
@@ -229,14 +260,7 @@
     { "type": "color", "id": "bg_color", "label": "Background", "default": "#F6F1E7" }
   ],
   "blocks": [
-    {
-      "type": "swatch",
-      "name": "Colour swatch",
-      "settings": [
-        { "type": "text", "id": "name", "label": "Colour name (must match the variant, e.g. Black)" },
-        { "type": "color", "id": "color", "label": "Colour", "default": "#1A1A1A" }
-      ]
-    },
+  
     {
       "type": "ribbon",
       "name": "Size ribbon",
