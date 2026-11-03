@@ -1,0 +1,47 @@
+{{ 'loomhaus-base.css' | asset_url | stylesheet_tag }}
+{{ 'loomhaus-announcement-bar.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="lh-section lh-announcement"
+  style="--lh-ann-bg: {{ section.settings.bg_color }}; --lh-ann-text: {{ section.settings.text_color }};"
+  {{ section.shopify_attributes }}
+>
+  <div class="lh-announcement__inner">
+    {%- for block in section.blocks -%}
+      {%- unless forloop.first -%}
+        <span class="lh-announcement__sep" aria-hidden="true">{{ section.settings.separator }}</span>
+      {%- endunless -%}
+      <p class="lh-announcement__text" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Loomhaus announcement bar",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background colour", "default": "#292A26" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "default": "#FFFFFF" },
+    { "type": "text", "id": "separator", "label": "Separator", "default": "✦" }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Free shipping on orders over ₹999" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loomhaus announcement bar",
+      "blocks": [
+        { "type": "message", "settings": { "text": "Free shipping on orders over ₹999" } },
+        { "type": "message", "settings": { "text": "Use code LOOM10 for 10% off your first order" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

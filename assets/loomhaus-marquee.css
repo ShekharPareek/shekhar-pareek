@@ -1,0 +1,71 @@
+.lh-marquee {
+  overflow: hidden;
+  background: var(--lh-mq-bg, #6B6F4E);
+  color: var(--lh-mq-text, #fff);
+  font-family: var(--lh-font-body);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.lh-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: lh-marquee var(--lh-mq-speed, 30s) linear infinite;
+}
+
+/* Hover par pause */
+.lh-marquee:hover .lh-marquee__track {
+  animation-play-state: paused;
+}
+
+.lh-marquee__group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  min-width: 100vw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lh-marquee__item {
+  display: flex;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 14px 24px;
+  white-space: nowrap;
+}
+
+.lh-marquee__icon {
+  display: inline-flex;
+  color: var(--lh-mq-icon, #fff);
+}
+
+.lh-marquee__icon img {
+  display: block;
+  object-fit: contain;
+}
+
+/* Group ek poora loop hai, isliye -50% par seamless restart hota hai */
+@keyframes lh-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Mobile: ek time par 2 ya 3 items */
+@media (max-width: 749px) {
+  .lh-marquee__item {
+    flex: 0 0 calc(100vw / var(--lh-mq-mobile-items, 3));
+    gap: 12px;
+    padding: 12px 8px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lh-marquee__track {
+    animation: none;
+  }
+}

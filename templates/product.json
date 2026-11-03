@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
       "type": "product-information",
@@ -38,6 +39,7 @@
             "media_columns": "two",
             "image_gap": 4,
             "large_first_image": false,
+            "icons_style": "arrow",
             "slideshow_controls_style": "counter",
             "slideshow_mobile_controls_style": "dots",
             "thumbnail_position": "right",
@@ -116,6 +118,7 @@
                 "border_opacity": 100,
                 "border_color": "",
                 "border_radius": 0,
+                "link": "",
                 "open_in_new_tab": false,
                 "placeholder": "",
                 "padding-block-start": 0,
@@ -465,10 +468,79 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "loomhaus_featured_product_fnG6TC": {
+      "type": "loomhaus-featured-product",
+      "blocks": {
+        "swatch_Q33rdH": {
+          "type": "swatch",
+          "settings": {
+            "name": "Black",
+            "color": "#1a1a1a"
+          }
+        },
+        "swatch_dzRPax": {
+          "type": "swatch",
+          "settings": {
+            "name": "White",
+            "color": "#ffffff"
+          }
+        },
+        "ribbon_z8yEtr": {
+          "type": "ribbon",
+          "settings": {
+            "size": "S",
+            "text": "Most Ordered"
+          }
+        },
+        "ribbon_Tz887C": {
+          "type": "ribbon",
+          "settings": {
+            "size": "L",
+            "text": "Best Fit"
+          }
+        },
+        "offer_peUm6q": {
+          "type": "offer",
+          "settings": {
+            "code": "LOOM10",
+            "percent": 10,
+            "note": "Use code LOOM10 for 10% off"
+          }
+        },
+        "offer_cAkgdw": {
+          "type": "offer",
+          "settings": {
+            "code": "LOOM15",
+            "percent": 15,
+            "note": "Buy 2, code LOOM15 for 15% off"
+          }
+        }
+      },
+      "block_order": [
+        "swatch_Q33rdH",
+        "swatch_dzRPax",
+        "ribbon_z8yEtr",
+        "ribbon_Tz887C",
+        "offer_peUm6q",
+        "offer_cAkgdw"
+      ],
+      "name": "Loomhaus featured product",
+      "settings": {
+        "product": "",
+        "badge": "Loomhaus #1 Everyday Top",
+        "rating": 4.6,
+        "review_count": "1,240+ Reviews",
+        "tax_text": "MRP inclusive of all taxes",
+        "highlight_title": "Keeps its shape after 50+ washes",
+        "highlight_text": "Heavyweight 320 GSM cotton, tested in our lab. See test results",
+        "bg_color": "#F6F1E7"
+      }
     }
   },
   "order": [
     "main",
-    "product_recommendations_qggXJq"
+    "product_recommendations_qggXJq",
+    "loomhaus_featured_product_fnG6TC"
   ]
 }

@@ -1,0 +1,34 @@
+.lh-announcement {
+  background: var(--lh-ann-bg, var(--lh-color-text-main));
+  color: var(--lh-ann-text, var(--lh-color-white));
+  font-family: var(--lh-font-body);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.lh-announcement__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  padding: 10px 16px;
+  margin: 0 auto;
+  font-weight: 500;
+}
+
+.lh-announcement__text {
+  margin: 0;
+}
+
+.lh-announcement__sep {
+  font-size: 10px;
+}
+
+@media (max-width: 749px) {
+  .lh-announcement__inner {
+    gap: 4px 10px;
+    padding: 8px 12px;
+  }
+}

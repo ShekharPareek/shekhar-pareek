@@ -1,0 +1,276 @@
+{{ 'loomhaus-base.css' | asset_url | stylesheet_tag }}
+{{ 'loomhaus-featured-product.css' | asset_url | stylesheet_tag }}
+
+{%- assign product = section.settings.product -%}
+
+{%- if product == blank -%}
+  <section class="lh-section lh-fp" {{ section.shopify_attributes }}>
+    <p class="lh-fp__empty">Select a product in the section settings.</p>
+  </section>
+{%- else -%}
+  {%- liquid
+    assign current = product.selected_or_first_available_variant
+    assign active_media_id = current.featured_media.id | default: product.featured_media.id
+    assign save_pct = 0
+    if current.compare_at_price > current.price
+      assign save_pct = current.compare_at_price | minus: current.price | times: 100.0 | divided_by: current.compare_at_price | round
+    endif
+
+    assign offers = section.blocks | where: 'type', 'offer'
+    assign swatches = section.blocks | where: 'type', 'swatch'
+    assign ribbons = section.blocks | where: 'type', 'ribbon'
+  -%}
+
+  <section
+    class="lh-section lh-fp"
+    data-lh-fp
+    style="--lh-fp-bg: {{ section.settings.bg_color }};"
+    {{ section.shopify_attributes }}
+  >
+    <div class="lh-fp__inner">
+
+      <!-- Gallery -->
+      <div class="lh-fp__gallery">
+        <div class="lh-fp__main">
+          {%- for media in product.media -%}
+            {%- if media.media_type == 'image' -%}
+              <div
+                class="lh-fp__slide{% if media.id == active_media_id %} is-active{% endif %}"
+                data-fp-slide
+                data-media-id="{{ media.id }}"
+              >
+                {{ media | image_url: width: 1000 | image_tag:
+                  widths: '500, 800, 1000',
+                  sizes: '(min-width: 990px) 45vw, 100vw',
+                  alt: media.alt | default: product.title,
+                  loading: 'lazy' }}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+
+          <button type="button" class="lh-fp__arrow lh-fp__arrow--prev" data-fp-prev aria-label="Previous image">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="lh-fp__arrow lh-fp__arrow--next" data-fp-next aria-label="Next image">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <ul class="lh-fp__thumbs">
+          {%- assign idx = 0 -%}
+          {%- for media in product.media -%}
+            {%- if media.media_type == 'image' -%}
+              <li>
+                <button type="button" class="lh-fp__thumb" data-fp-thumb data-index="{{ idx }}" aria-label="Show image {{ idx | plus: 1 }}">
+                  {{ media | image_url: width: 160 | image_tag: width: 80, alt: '', loading: 'lazy' }}
+                </button>
+              </li>
+              {%- assign idx = idx | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <!-- Info -->
+      <div class="lh-fp__info">
+        <div class="lh-fp__top">
+          {%- if section.settings.badge != blank -%}
+            <span class="lh-fp__badge">{{ section.settings.badge }}</span>
+          {%- endif -%}
+
+          {%- if section.settings.rating > 0 -%}
+            <p class="lh-fp__rating">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.7 7.4L12 18l-6.5 4 1.7-7.4-5.7-5 7.5-.7z"/></svg>
+              <strong>{{ section.settings.rating }}</strong>
+              {%- if section.settings.review_count != blank -%}
+                <span>({{ section.settings.review_count }})</span>
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+        </div>
+
+        <h2 class="lh-fp__title">{{ product.title }}</h2>
+
+        <div class="lh-fp__price-row">
+          <span class="lh-fp__price" data-fp-price>{{ current.price | money }}</span>
+          <s class="lh-fp__compare" data-fp-compare {% unless save_pct > 0 %}hidden{% endunless %}>{{ current.compare_at_price | money }}</s>
+          <span class="lh-fp__save" data-fp-save {% unless save_pct > 0 %}hidden{% endunless %}>Save {{ save_pct }}%</span>
+        </div>
+        {%- if section.settings.tax_text != blank -%}
+          <p class="lh-fp__tax">{{ section.settings.tax_text }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.highlight_title != blank -%}
+          <div class="lh-fp__highlight">
+            <span class="lh-fp__check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div>
+              <p class="lh-fp__highlight-title">{{ section.settings.highlight_title }}</p>
+              <p class="lh-fp__highlight-text">{{ section.settings.highlight_text }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+        <!-- Options (colour swatches + size pills) -->
+        {%- for option in product.options_with_values -%}
+          {%- assign opt_name = option.name | downcase -%}
+          {%- assign opt_index = forloop.index0 -%}
+          {%- assign chosen = current.options[opt_index] -%}
+          <fieldset class="lh-fp__option" data-fp-option="{{ opt_index }}">
+            <legend>
+              {{ option.name }}{% if opt_name contains 'colo' %}: <span data-fp-chosen>{{ chosen }}</span>{% endif %}
+            </legend>
+            <div class="lh-fp__choices">
+              {%- for value in option.values -%}
+                {%- assign input_id = 'fp-' | append: section.id | append: '-' | append: opt_index | append: '-' | append: forloop.index -%}
+
+                <input type="radio" id="{{ input_id }}" name="{{ section.id }}-opt-{{ opt_index }}" value="{{ value.name | escape }}" {% if value.name == chosen %}checked{% endif %}>
+
+                {%- if opt_name contains 'colo' -%}
+                  <label for="{{ input_id }}" class="lh-fp__swatch" title="{{ value.name | escape }}">
+                    {%- if value.swatch.color != blank -%}
+                      <span style="background: {{ value.swatch.color }};"></span>
+                    {%- elsif value.swatch.image != blank -%}
+                      <span style="background: url({{ value.swatch.image | image_url: width: 48 }}) center / cover;"></span>
+                    {%- else -%}
+                      <span style="background: {{ value.name | replace: ' ', '' }};"></span>
+                    {%- endif -%}
+                    <span class="visually-hidden">{{ value.name }}</span>
+                  </label>
+                {%- else -%}
+                  <label for="{{ input_id }}" class="lh-fp__pill">{{ value.name }}</label>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- endfor -%}
+        <!-- Quantity + buttons -->
+        <div class="lh-fp__buy">
+          <div class="lh-fp__qty">
+            <button type="button" data-fp-minus aria-label="Decrease quantity">−</button>
+            <input type="text" inputmode="numeric" value="1" data-fp-qty aria-label="Quantity" readonly>
+            <button type="button" data-fp-plus aria-label="Increase quantity">+</button>
+          </div>
+          <button type="button" class="lh-fp__atc" data-fp-add {% unless current.available %}disabled{% endunless %}>
+            <span data-fp-add-label>{% if current.available %}Add to cart{% else %}Sold out{% endif %}</span>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M1 6h14M10 1l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <button type="button" class="lh-fp__now" data-fp-buy {% unless current.available %}disabled{% endunless %}>Buy it now</button>
+        <p class="lh-fp__error" data-fp-error role="alert" hidden></p>
+
+        <!-- Offer cards -->
+        {%- if offers.size > 0 -%}
+          <ul class="lh-fp__offers">
+            {%- for offer in offers -%}
+              {%- assign pct = offer.settings.percent | default: 0 -%}
+              {%- assign off = current.price | times: pct | divided_by: 100.0 | round -%}
+              {%- assign final = current.price | minus: off -%}
+              <li class="lh-fp__offer" {{ offer.shopify_attributes }}>
+                <span class="lh-fp__offer-icon" aria-hidden="true">%</span>
+                <div>
+                  <p class="lh-fp__offer-title">Get it for <strong data-fp-offer="{{ forloop.index0 }}">{{ final | money }}</strong></p>
+                  <p class="lh-fp__offer-note">{{ offer.settings.note }}</p>
+                </div>
+                <button type="button" class="lh-fp__copy" data-fp-copy="{{ offer.settings.code | escape }}" aria-label="Copy code {{ offer.settings.code | escape }}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V6a2 2 0 0 1 2-2h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </button>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- Variant data: save % aur offer prices Liquid me calculate hote hain -->
+    <script type="application/json" data-fp-variants>
+      [
+        {%- for v in product.variants -%}
+          {%- assign v_save = 0 -%}
+          {%- if v.compare_at_price > v.price -%}
+            {%- assign v_save = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round -%}
+          {%- endif -%}
+          {
+            "id": {{ v.id }},
+            "options": {{ v.options | json }},
+            "available": {{ v.available }},
+            "price": {{ v.price | money | json }},
+            "compare": {{ v.compare_at_price | money | json }},
+            "save": {{ v_save }},
+            "mediaId": {{ v.featured_media.id | default: 0 }},
+            "offers": [
+              {%- for offer in offers -%}
+                {%- assign v_pct = offer.settings.percent | default: 0 -%}
+                {%- assign v_off = v.price | times: v_pct | divided_by: 100.0 | round -%}
+                {{ v.price | minus: v_off | money | json }}{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            ]
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    </script>
+  </section>
+
+ 
+  
+{%- endif -%}
+ <script src="{{ 'loomhaus-featured-product.js' | asset_url }}" defer></script>
+{% schema %}
+{
+  "name": "Loomhaus featured product",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product (Classic Varsity Top)" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "badge", "label": "Badge", "default": "Loomhaus #1 Everyday Top" },
+    { "type": "range", "id": "rating", "label": "Rating", "min": 0, "max": 5, "step": 0.1, "default": 4.6 },
+    { "type": "text", "id": "review_count", "label": "Review count", "default": "1,240+ Reviews" },
+    { "type": "text", "id": "tax_text", "label": "Tax text", "default": "MRP inclusive of all taxes" },
+    { "type": "text", "id": "highlight_title", "label": "Highlight title", "default": "Keeps its shape after 50+ washes" },
+    { "type": "text", "id": "highlight_text", "label": "Highlight text", "default": "Heavyweight 320 GSM cotton, tested in our lab. See test results" },
+
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#F6F1E7" }
+  ],
+  "blocks": [
+    {
+      "type": "swatch",
+      "name": "Colour swatch",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Colour name (must match the variant, e.g. Black)" },
+        { "type": "color", "id": "color", "label": "Colour", "default": "#1A1A1A" }
+      ]
+    },
+    {
+      "type": "ribbon",
+      "name": "Size ribbon",
+      "settings": [
+        { "type": "text", "id": "size", "label": "Size (e.g. S)" },
+        { "type": "text", "id": "text", "label": "Ribbon text", "default": "Most Ordered" }
+      ]
+    },
+    {
+      "type": "offer",
+      "name": "Offer card",
+      "settings": [
+        { "type": "text", "id": "code", "label": "Code", "default": "LOOM10" },
+        { "type": "range", "id": "percent", "label": "Discount percent", "min": 1, "max": 90, "step": 1, "unit": "%", "default": 10 },
+        { "type": "text", "id": "note", "label": "Note", "default": "Use code LOOM10 for 10% off" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loomhaus featured product",
+      "blocks": [
+        { "type": "swatch", "settings": { "name": "Black", "color": "#1A1A1A" } },
+        { "type": "swatch", "settings": { "name": "White", "color": "#FFFFFF" } },
+        { "type": "ribbon", "settings": { "size": "S", "text": "Most Ordered" } },
+        { "type": "ribbon", "settings": { "size": "L", "text": "Best Fit" } },
+        { "type": "offer", "settings": { "code": "LOOM10", "percent": 10, "note": "Use code LOOM10 for 10% off" } },
+        { "type": "offer", "settings": { "code": "LOOM15", "percent": 15, "note": "Buy 2, code LOOM15 for 15% off" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

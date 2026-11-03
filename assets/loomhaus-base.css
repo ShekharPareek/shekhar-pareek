@@ -1,0 +1,15 @@
+:root {
+  --lh-color-text-main: #292A26;
+  --lh-color-white: #FFFFFF;
+  --lh-color-bg-cream: #E4DED3;
+  --lh-color-olive: #777A67;
+  --lh-color-beige: ; 
+
+  --lh-font-body: 'Cabin', sans-serif;
+  --lh-font-heading: 'Bricolage Grotesque', sans-serif;
+}
+
+.lh-section,
+.lh-section * {
+  box-sizing: border-box;
+}

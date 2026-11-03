@@ -6,280 +6,261 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "loomhaus_image_with_text_UiD4Rc": {
+      "type": "loomhaus-image-with-text",
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
+        "stat_y6fffp": {
+          "type": "stat",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "text_color": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "value": "4.8★",
+            "label": "2,000+ reviews"
+          }
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "stat_6nHpAj": {
+          "type": "stat",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-custom",
-            "custom_button_background": "rgba(0,0,0,0)",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
+            "value": "100%",
+            "label": "organic cotton"
+          }
+        },
+        "stat_M9Bjpj": {
+          "type": "stat",
+          "settings": {
+            "value": "30 days",
+            "label": "free returns"
+          }
         }
       },
       "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
+        "stat_y6fffp",
+        "stat_6nHpAj",
+        "stat_M9Bjpj"
       ],
-      "name": "t:names.hero",
+      "name": "Loomhaus hero",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "background_color": "rgba(0,0,0,0)",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "pill_text": "New season · Autumn / Winter",
+        "title": "The Winter\nEdit",
+        "description": "Warm layers, honest fabrics and fits that work every day. Discover the pieces our community wears on repeat this season.",
+        "button_text": "Shop now",
+        "button_link": "shopify://products/dark-denim-top",
+        "image": "shopify://shop_images/c82ddfed4408df925613612b23d42b5e62b68efa.jpg",
+        "card_product": "dark-winter-jacket",
+        "card_subtitle": "Bestseller this week",
+        "bg_color": "#f6f1e7",
+        "pill_bg": "#6b6f4e",
+        "circle_color": "#e6dfd0"
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
+    "loomhaus_marquee_QRxmLx": {
+      "type": "loomhaus-marquee",
       "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
+        "item_NNeWy8": {
+          "type": "item",
           "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
+            "text": "Organic cotton"
+          }
         },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
+        "item_Tf444j": {
+          "type": "item",
           "settings": {
-            "product_card_gap": 4,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
+            "text": "Made to last"
+          }
+        },
+        "item_rCemzA": {
+          "type": "item",
+          "settings": {
+            "text": "Sizes XS to L"
+          }
+        },
+        "item_HpHKKM": {
+          "type": "item",
+          "settings": {
+            "text": "Free returns"
+          }
+        },
+        "item_pXcFEQ": {
+          "type": "item",
+          "settings": {
+            "text": "Ethically made"
+          }
         }
       },
-      "name": "t:names.product_list",
+      "block_order": [
+        "item_NNeWy8",
+        "item_Tf444j",
+        "item_rCemzA",
+        "item_HpHKKM",
+        "item_pXcFEQ"
+      ],
+      "name": "Loomhaus marquee",
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "speed": 30,
+        "mobile_items": "3",
+        "bg_color": "#6b6f4e",
+        "text_color": "#ffffff",
+        "icon_color": "#ffffff"
+      }
+    },
+    "loomhaus_product_grid_gTRkya": {
+      "type": "loomhaus-product-grid",
+      "blocks": {
+        "tile_AayRtM": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/b02871517aa3d6e0c6fde9d36f536809f3ffc61b.jpg",
+            "product": "olive-green-jacket",
+            "hotspot_x": 50,
+            "hotspot_y": 40,
+            "product_2": "",
+            "hotspot_x_2": 57,
+            "hotspot_y_2": 57
+          }
+        },
+        "tile_LMz6NA": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/eb17a3d7d9ed384d29b64ed838e192542a4ab835.jpg",
+            "product": "classic-leather-jacket",
+            "hotspot_x": 50,
+            "hotspot_y": 40,
+            "product_2": "",
+            "hotspot_x_2": 70,
+            "hotspot_y_2": 60
+          }
+        },
+        "tile_8kwKne": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/1b9869f959ab1aabfad597562ed29ab2b152685a.jpg",
+            "product": "blue-silk-tuxedo",
+            "hotspot_x": 55,
+            "hotspot_y": 40,
+            "product_2": "",
+            "hotspot_x_2": 70,
+            "hotspot_y_2": 60
+          }
+        },
+        "tile_YrmBaA": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/3ddac1445558631e6ed553cdcfabec8caa882604.jpg",
+            "product": "striped-skirt-and-top",
+            "hotspot_x": 50,
+            "hotspot_y": 55,
+            "product_2": "",
+            "hotspot_x_2": 70,
+            "hotspot_y_2": 60
+          }
+        },
+        "tile_hnweCx": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/6ce13bfdfd404b61906d6d1bf9358efcbd3625eb.jpg",
+            "product": "led-high-tops",
+            "hotspot_x": 50,
+            "hotspot_y": 57,
+            "product_2": "",
+            "hotspot_x_2": 70,
+            "hotspot_y_2": 60
+          }
+        },
+        "tile_E37T4K": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/88d2399aa1c2b73dd162bcfdab7b6beb861c4ab7.jpg",
+            "product": "striped-silk-blouse",
+            "hotspot_x": 50,
+            "hotspot_y": 40,
+            "product_2": "",
+            "hotspot_x_2": 70,
+            "hotspot_y_2": 60
+          }
+        }
+      },
+      "block_order": [
+        "tile_AayRtM",
+        "tile_LMz6NA",
+        "tile_8kwKne",
+        "tile_YrmBaA",
+        "tile_hnweCx",
+        "tile_E37T4K"
+      ],
+      "name": "Loomhaus product grid",
+      "settings": {
+        "label": "Shop the look",
+        "heading": "Loomhaus in the wild",
+        "note": "Tap the + on any look to shop it.",
+        "bg_color": "#f6f1e7"
+      }
+    },
+    "loomhaus_featured_product_jYJiNk": {
+      "type": "loomhaus-featured-product",
+      "blocks": {
+        "swatch_G9HPxm": {
+          "type": "swatch",
+          "settings": {
+            "name": "Black",
+            "color": "#1a1a1a"
+          }
+        },
+        "ribbon_4HMkYp": {
+          "type": "ribbon",
+          "settings": {
+            "size": "S",
+            "text": "Most Ordered"
+          }
+        },
+        "ribbon_VF8y3q": {
+          "type": "ribbon",
+          "settings": {
+            "size": "L",
+            "text": "Best Fit"
+          }
+        },
+        "offer_HHJzR8": {
+          "type": "offer",
+          "settings": {
+            "code": "LOOM10",
+            "percent": 10,
+            "note": "Use code LOOM10 for 10% off"
+          }
+        },
+        "offer_ABNRfk": {
+          "type": "offer",
+          "settings": {
+            "code": "LOOM15",
+            "percent": 15,
+            "note": "Buy 2, code LOOM15 for 15% off"
+          }
+        }
+      },
+      "block_order": [
+        "swatch_G9HPxm",
+        "ribbon_4HMkYp",
+        "ribbon_VF8y3q",
+        "offer_HHJzR8",
+        "offer_ABNRfk"
+      ],
+      "name": "Loomhaus featured product",
+      "settings": {
+        "product": "classic-varsity-top",
+        "badge": "Loomhaus #1 Everyday Top",
+        "rating": 4.6,
+        "review_count": "1,240+ Reviews",
+        "tax_text": "MRP inclusive of all taxes",
+        "highlight_title": "Keeps its shape after 50+ washes",
+        "highlight_text": "Heavyweight 320 GSM cotton, tested in our lab. See test results",
+        "bg_color": "#f6f1e7"
       }
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "loomhaus_image_with_text_UiD4Rc",
+    "loomhaus_marquee_QRxmLx",
+    "loomhaus_product_grid_gTRkya",
+    "loomhaus_featured_product_jYJiNk"
   ]
 }
