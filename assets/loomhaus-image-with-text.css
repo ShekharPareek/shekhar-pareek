@@ -2,6 +2,7 @@
   background: var(--lh-hero-bg, #F6F1E7);
   color: var(--lh-color-text-main);
   font-family: var(--lh-font-body);
+  overflow: hidden; /* circle se horizontal scroll na aaye */
 }
 
 .lh-hero__inner {
@@ -47,6 +48,7 @@
 .lh-hero__button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   padding: 14px 24px;
   border-radius: 999px;
@@ -138,13 +140,16 @@
   border-radius: 12px;
   background: var(--lh-color-white);
   box-shadow: 0 8px 24px rgba(41, 42, 38, 0.12);
+  color: inherit;
+  text-decoration: none;
 }
 
 .lh-hero__card img {
- 
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-    object-fit: contain;
-    width: 40px;
+  object-fit: contain;
+}
 
 .lh-hero__card-title {
   margin: 0;
@@ -158,6 +163,7 @@
   opacity: 0.6;
 }
 
+/* Tablet */
 @media (max-width: 989px) {
   .lh-hero__inner {
     grid-template-columns: 1fr;
@@ -167,19 +173,76 @@
   .lh-hero__title {
     font-size: 52px;
   }
+  .lh-hero__media {
+    max-width: 460px;
+  }
 }
 
+/* Mobile (390px Figma frame) */
 @media (max-width: 749px) {
   .lh-hero__inner {
-    padding: 32px 16px;
+    gap: 32px;
+    padding: 24px 20px 40px;
   }
+
+  .lh-hero__pill {
+    margin-bottom: 16px;
+    font-size: 10px;
+  }
+
   .lh-hero__title {
-    font-size: 44px;
+    margin-bottom: 16px;
+    font-size: 40px;
   }
-  .lh-hero__card {
-    left: 8px;
+
+  .lh-hero__text {
+    max-width: none;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  /* Button full width */
+  .lh-hero__button {
+    display: flex;
+    width: 100%;
+    padding: 16px 24px;
+  }
+
+  /* 3 stats ek row me, barabar spread */
+  .lh-hero__stats {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .lh-hero__stat strong {
+    font-size: 20px;
+  }
+  .lh-hero__stat span {
+    font-size: 10px;
+  }
+
+  /* Image full width, circle peeche se thoda nikla hua */
+  .lh-hero__media {
+    max-width: 100%;
+    padding-right: 4%;
   }
   .lh-hero__circle {
-    right: -6%;
+    top: 6%;
+    right: -4%;
+    width: 80%;
+  }
+  .lh-hero__arch {
+    border-radius: 999px 999px 20px 20px;
+  }
+
+  .lh-hero__card {
+    left: 12px;
+    bottom: 16px;
+    padding: 8px 12px 8px 8px;
+  }
+  .lh-hero__card img {
+    width: 32px;
+    height: 32px;
   }
 }
