@@ -1,6 +1,7 @@
 
 {{ 'loomhaus-base.css' | asset_url | stylesheet_tag }}
 {{ 'loomhaus-product-grid.css' | asset_url | stylesheet_tag }}
+{{ 'loomhaus-quick-view.css' | asset_url | stylesheet_tag }}
 
 <section
   class="lh-section lh-grid"
@@ -68,83 +69,49 @@
 {% assign product_2 = block.settings.product_2 %}
 
 {% if product_1 != blank %}
-
-  <a
-      href="{{ product_1.url }}"
-
+  <button
     type="button"
     class="lh-grid__hotspot lh-grid__hotspot--1"
-    style="
-      left: {{ block.settings.hotspot_x }}%;
-      top: {{ block.settings.hotspot_y }}%;
-    "
-    aria-label="View {{ product_1.title | escape }}"
+    style="left: {{ block.settings.hotspot_x }}%; top: {{ block.settings.hotspot_y }}%;"
+    data-lh-quickview
+    data-handle="{{ product_1.handle }}"
+    aria-label="Quick view {{ product_1.title | escape }}"
   >
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M6 1v10M1 6h10"
-        stroke="currentColor"
-        stroke-width="1.6"
-        stroke-linecap="round"
-      />
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
     </svg>
-</a>
+  </button>
 
   <div class="lh-grid__pill lh-grid__pill--1">
     <span>{{ product_1.title }}</span>
     <strong>{{ product_1.price | money }}</strong>
   </div>
-
 {% endif %}
 
 
 {% if product_2 != blank %}
-
-  <a
-    href="{{ product_2.url }}"
+  <button
     type="button"
     class="lh-grid__hotspot lh-grid__hotspot--2"
-    style="
-      left: {{ block.settings.hotspot_x_2 }}%;
-      top: {{ block.settings.hotspot_y_2 }}%;
-    "
-    aria-label="View {{ product_2.title | escape }}"
+    style="left: {{ block.settings.hotspot_x_2 }}%; top: {{ block.settings.hotspot_y_2 }}%;"
+    data-lh-quickview
+    data-handle="{{ product_2.handle }}"
+    aria-label="Quick view {{ product_2.title | escape }}"
   >
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M6 1v10M1 6h10"
-        stroke="currentColor"
-        stroke-width="1.6"
-        stroke-linecap="round"
-      />
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
     </svg>
-</a>
+  </button>
 
   <div class="lh-grid__pill lh-grid__pill--2">
     <span>{{ product_2.title }}</span>
     <strong>{{ product_2.price | money }}</strong>
   </div>
-
 {% endif %}
 
-
-            {% else %}
-              <div class="lh-grid__empty">
-                Select a product
-              </div>
-            {% endif %}
+{% if product_1 == blank and product_2 == blank %}
+  <div class="lh-grid__empty">Select a product</div>
+{% endif %}
 
           </div>
         </li>
@@ -280,3 +247,5 @@
   ]
 }
 {% endschema %}
+
+<script src="{{ 'loomhaus-quick-view.js' | asset_url }}" defer></script>
