@@ -111,9 +111,9 @@
             </div>
           </div>
         {%- endif -%}
-
+<p>{{ product.options }}</p>
         <!-- Options (colour swatches + size pills) -->
-       {%- for option in product.options_with_values -%}
+       {% comment %} {%- for option in product.options_with_values -%}
   {%- assign opt_name = option.name | downcase -%}
   {%- assign opt_index = forloop.index0 -%}
   {%- assign chosen = current.options[opt_index] -%}
@@ -138,7 +138,7 @@
       {%- endfor -%}
     </div>
   </fieldset>
-{%- endfor -%}
+{%- endfor -%} {% endcomment %}
 
         <!-- Quantity + buttons -->
         <div class="lh-fp__buy">
@@ -208,7 +208,7 @@
   </section>
 
   <script src="{{ 'loomhaus-featured-product.js' | asset_url }}" defer></script>
-  
+
 {%- endif -%}
 
 {% schema %}
