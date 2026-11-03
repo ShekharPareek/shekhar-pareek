@@ -3,7 +3,7 @@
   var root = document.querySelector('[data-lh-fp]');
   if (!root) return;
 
-  // Liquid ne har variant ka data JSON me diya hai (price, save %, offer prices)
+  // Liquid varient data in the JSON
   var variants = JSON.parse(root.querySelector('[data-fp-variants]').textContent);
 
   var slides = root.querySelectorAll('[data-fp-slide]');
@@ -46,14 +46,16 @@
   function updateVariant() {
     var chosen = selectedOptions();
 
-    // Selected options se matching variant dhundo
     variant = variants.filter(function (v) {
       return v.options.join('|') === chosen.join('|');
     })[0];
 
-    // Colour ka naam label me dikhao
-    var colourLabel = find('[data-fp-chosen]');
-    if (colourLabel) colourLabel.textContent = chosen[0];
+  
+var colourLabel = find('[data-fp-chosen]');
+if (colourLabel) {
+  var checked = colourLabel.closest('[data-fp-option]').querySelector('input:checked');
+  if (checked) colourLabel.textContent = checked.value;
+}
 
     if (!variant) return;
 
@@ -67,7 +69,6 @@
     compare.textContent = variant.compare;
     save.textContent = 'Save ' + variant.save + '%';
 
-    // Offer cards ka "Get it for" price
     variant.offers.forEach(function (price, i) {
       var el = find('[data-fp-offer="' + i + '"]');
       if (el) el.textContent = price;
@@ -78,7 +79,7 @@
     buyBtn.disabled = !variant.available;
     find('[data-fp-add-label]').textContent = variant.available ? 'Add to cart' : 'Sold out';
 
-    // Variant ki image par jao
+    // Variant image to slide gallery
     slides.forEach(function (slide, i) {
       if (Number(slide.dataset.mediaId) === variant.mediaId) showSlide(i);
     });
@@ -100,10 +101,10 @@
   function addToCart() {
     var item = { id: variant.id, quantity: getQty() };
 
-    // Cart drawer ka code use karo (wahi drawer kholta hai)
+    // Cart drawer 
     if (window.LoomhausCart) return window.LoomhausCart.add(item);
 
-    // Drawer na ho to seedha cart API
+    //if not drawer then add to cart via fetch
     return fetch('/cart/add.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -139,7 +140,7 @@
       addToCart().catch(function () { showError('Could not add to cart.'); });
     }
 
-    // Buy it now: cart me daalo, phir seedha checkout
+    // Buy it no:
     if (target.closest('[data-fp-buy]')) {
       addToCart()
         .then(function () { window.location.href = '/checkout'; })
@@ -155,7 +156,7 @@
     }
   });
 
-  // Page load par pehli slide aur selected variant set karo
+  // first load: quantity 1, first slide, first variant
   setQty(1);
   showSlide(0);
   updateVariant();
