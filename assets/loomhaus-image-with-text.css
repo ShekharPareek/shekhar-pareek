@@ -2,7 +2,7 @@
   background: var(--lh-hero-bg, #F6F1E7);
   color: var(--lh-color-text-main);
   font-family: var(--lh-font-body);
-  overflow: hidden; /* circle se horizontal scroll na aaye */
+  overflow: hidden; 
 }
 
 .lh-hero__inner {
@@ -32,7 +32,7 @@
   margin: 0 0 24px;
   font-family: var(--lh-font-heading);
   font-weight: 800;
-  font-size: 72px; /* Figma se verify karo */
+  font-size: 52px;
   line-height: 1;
   letter-spacing: -0.01em;
 }
@@ -43,6 +43,7 @@
   font-size: 16px;
   line-height: 1.5;
   opacity: 0.75;
+  font-weight: 400;
 }
 
 .lh-hero__button {
@@ -95,7 +96,7 @@
   opacity: 0.65;
 }
 
-/* Right side: arch image + circle + floating card */
+
 .lh-hero__media {
   position: relative;
   justify-self: center;
@@ -201,14 +202,14 @@
     font-size: 14px;
   }
 
-  /* Button full width */
+
   .lh-hero__button {
     display: flex;
     width: 100%;
     padding: 16px 24px;
   }
 
-  /* 3 stats ek row me, barabar spread */
+
   .lh-hero__stats {
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -222,7 +223,7 @@
     font-size: 10px;
   }
 
-  /* Image full width, circle peeche se thoda nikla hua */
+
   .lh-hero__media {
     max-width: 100%;
     padding-right: 4%;
