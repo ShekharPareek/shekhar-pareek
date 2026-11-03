@@ -199,6 +199,13 @@
     "loomhaus_featured_product_jYJiNk": {
       "type": "loomhaus-featured-product",
       "blocks": {
+        "swatch_iJRBWG": {
+          "type": "swatch",
+          "settings": {
+            "name": "Black,White",
+            "color": "#1a1a1a"
+          }
+        },
         "ribbon_4HMkYp": {
           "type": "ribbon",
           "settings": {
@@ -231,6 +238,7 @@
         }
       },
       "block_order": [
+        "swatch_iJRBWG",
         "ribbon_4HMkYp",
         "ribbon_VF8y3q",
         "offer_HHJzR8",
