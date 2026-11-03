@@ -42,17 +42,16 @@
       "type": "loomhaus-header",
       "name": "Loomhaus header",
       "settings": {
-        "logo": "shopify://shop_images/c82ddfed4408df925613612b23d42b5e62b68efa.jpg",
         "logo_width": 120,
         "logo_text": "Loomhaus",
         "tagline": "Clothes made to be worn for years, not seasons.",
         "button_label": "Shop the drop",
-        "button_link": "",
-        "bg_color": "#F6F1E7",
-        "text_color": "#292A26",
-        "button_bg": "#E6DFD0",
-        "button_text_color": "#292A26",
-        "count_bg": "#6B6F4E"
+        "button_link": "shopify://products/black-leather-bag",
+        "bg_color": "#f6f1e7",
+        "text_color": "#292a26",
+        "button_bg": "#e6dfd0",
+        "button_text_color": "#292a26",
+        "count_bg": "#6b6f4e"
       }
     },
     "header_section": {
