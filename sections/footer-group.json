@@ -11,7 +11,20 @@
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
-    "loomhaus-cart-drawer": { "type": "loomhaus-cart-drawer", "settings": {} },
+    "loomhaus_cart_drawer_Hqwk4Q": {
+      "type": "loomhaus-cart-drawer",
+      "name": "Loomhaus cart drawer",
+      "settings": {
+        "title": "Your cart",
+        "checkout_label": "Checkout",
+        "note": "Taxes included. Shipping calculated at checkout.",
+        "empty_text": "Your cart is empty.",
+        "empty_button": "Continue shopping",
+        "gift_product": "",
+        "trigger_color": "Black",
+        "trigger_size": "M"
+      }
+    },
     "loomhaus_footer_7jEiGT": {
       "type": "loomhaus-footer",
       "blocks": {
@@ -39,12 +52,13 @@
         "logo_width": 120,
         "logo_text": "Loomhaus",
         "tagline": "Clothes made to be worn for years, not seasons.",
-        "bg_color": "#292A26",
-        "text_color": "#F6F1E7"
+        "bg_color": "#292a26",
+        "text_color": "#f6f1e7"
       }
     }
   },
   "order": [
+    "loomhaus_cart_drawer_Hqwk4Q",
     "loomhaus_footer_7jEiGT"
   ]
 }
