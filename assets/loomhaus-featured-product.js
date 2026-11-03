@@ -1,170 +1,162 @@
+// @ts-nocheck
 (function () {
-  'use strict';
+  var root = document.querySelector('[data-lh-fp]');
+  if (!root) return;
 
-  function init(root) {
-    if (root.dataset.fpReady) return;
-    root.dataset.fpReady = '1';
+  // Liquid ne har variant ka data JSON me diya hai (price, save %, offer prices)
+  var variants = JSON.parse(root.querySelector('[data-fp-variants]').textContent);
 
-    var variants = JSON.parse(root.querySelector('[data-fp-variants]').textContent);
-    var slides = root.querySelectorAll('[data-fp-slide]');
-    var thumbs = root.querySelectorAll('[data-fp-thumb]');
-    var options = root.querySelectorAll('[data-fp-option]');
-    var qtyInput = root.querySelector('[data-fp-qty]');
-    var addBtn = root.querySelector('[data-fp-add]');
-    var buyBtn = root.querySelector('[data-fp-buy]');
-    var errorEl = root.querySelector('[data-fp-error]');
-    var current = 0;
-    var variant = null;
+  var slides = root.querySelectorAll('[data-fp-slide]');
+  var thumbs = root.querySelectorAll('[data-fp-thumb]');
+  var qtyInput = root.querySelector('[data-fp-qty]');
+  var addBtn = root.querySelector('[data-fp-add]');
+  var buyBtn = root.querySelector('[data-fp-buy]');
+  var errorEl = root.querySelector('[data-fp-error]');
 
-    function $(sel) { return root.querySelector(sel); }
+  var currentSlide = 0;
+  var variant = variants[0];
 
-    /* ---------- Gallery ---------- */
-    function goTo(i) {
-      if (!slides.length) return;
-      current = (i + slides.length) % slides.length;
-      slides.forEach(function (s, n) { s.classList.toggle('is-active', n === current); });
-      thumbs.forEach(function (t, n) { t.classList.toggle('is-active', n === current); });
-    }
-
-    /* ---------- Variants ---------- */
-    function selected() {
-      return Array.prototype.map.call(options, function (fs) {
-        var checked = fs.querySelector('input:checked');
-        return checked ? checked.value : '';
-      });
-    }
-
-    function matches(v, opts) {
-      return v.options.every(function (o, i) { return o === opts[i]; });
-    }
-
-    // Jis value ka koi available variant nahi, use disable karo
-    function updateDisabled(sel) {
-      options.forEach(function (fs, pos) {
-        fs.querySelectorAll('input').forEach(function (input) {
-          var test = sel.slice();
-          test[pos] = input.value;
-          input.disabled = !variants.some(function (v) { return v.available && matches(v, test); });
-        });
-      });
-    }
-
-    function update() {
-      var sel = selected();
-      variant = variants.filter(function (v) { return matches(v, sel); })[0] || null;
-      updateDisabled(sel);
-
-      // Colour label
-      options.forEach(function (fs, i) {
-        var label = fs.querySelector('[data-fp-chosen]');
-        if (label) label.textContent = sel[i];
-      });
-
-      if (!variant) {
-        addBtn.disabled = buyBtn.disabled = true;
-        root.querySelector('[data-fp-add-label]').textContent = 'Unavailable';
-        return;
-      }
-
-      $('[data-fp-price]').textContent = variant.price;
-      var compare = $('[data-fp-compare]');
-      var save = $('[data-fp-save]');
-      var onSale = variant.save > 0;
-      compare.hidden = save.hidden = !onSale;
-      compare.textContent = variant.compare;
-      save.textContent = 'Save ' + variant.save + '%';
-
-      variant.offers.forEach(function (price, i) {
-        var el = $('[data-fp-offer="' + i + '"]');
-        if (el) el.textContent = price;
-      });
-
-      addBtn.disabled = buyBtn.disabled = !variant.available;
-      root.querySelector('[data-fp-add-label]').textContent = variant.available ? 'Add to cart' : 'Sold out';
-
-      // Variant ki image par jao
-      if (variant.mediaId) {
-        slides.forEach(function (s, n) {
-          if (Number(s.dataset.mediaId) === variant.mediaId) goTo(n);
-        });
-      }
-      showError('');
-    }
-
-    function showError(msg) {
-      errorEl.textContent = msg;
-      errorEl.hidden = !msg;
-    }
-
-    /* ---------- Quantity ---------- */
-    function qty() { return Math.max(1, parseInt(qtyInput.value, 10) || 1); }
-    function setQty(n) { qtyInput.value = String(Math.max(1, n)).padStart(2, '0'); }
-    setQty(1);
-
-    /* ---------- Cart ---------- */
-    function addItem() {
-      var item = { id: variant.id, quantity: qty() };
-      if (window.LoomhausCart) return window.LoomhausCart.add(item);
-      return fetch('/cart/add.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: [item] })
-      }).then(function (r) {
-        if (!r.ok) throw new Error('Could not add to cart.');
-        window.location.href = '/cart';
-      });
-    }
-
-    function lock(btn, fn) {
-      if (!variant || !variant.available) return;
-      btn.disabled = true;
-      Promise.resolve()
-        .then(fn)
-        .catch(function (e) { showError(e.message); })
-        .then(function () { btn.disabled = !variant.available; });
-    }
-
-    /* ---------- Events ---------- */
-    root.addEventListener('change', function (e) {
-      if (e.target.closest('[data-fp-option]')) update();
-    });
-
-    root.addEventListener('click', function (e) {
-      var t = e.target;
-      if (t.closest('[data-fp-prev]')) return goTo(current - 1);
-      if (t.closest('[data-fp-next]')) return goTo(current + 1);
-
-      var thumb = t.closest('[data-fp-thumb]');
-      if (thumb) return goTo(Number(thumb.dataset.index));
-
-      if (t.closest('[data-fp-minus]')) return setQty(qty() - 1);
-      if (t.closest('[data-fp-plus]')) return setQty(qty() + 1);
-
-      if (t.closest('[data-fp-add]')) return lock(addBtn, addItem);
-
-      // Buy it now: add karo, phir seedha checkout (Black + M rule drawer JS se chalta rahe)
-      if (t.closest('[data-fp-buy]')) {
-        return lock(buyBtn, function () {
-          return addItem().then(function () { window.location.href = '/checkout'; });
-        });
-      }
-
-      var copy = t.closest('[data-fp-copy]');
-      if (copy && navigator.clipboard) {
-        navigator.clipboard.writeText(copy.dataset.fpCopy).then(function () {
-          copy.classList.add('is-copied');
-          setTimeout(function () { copy.classList.remove('is-copied'); }, 1500);
-        });
-      }
-    });
-
-    goTo(Math.max(0, Array.prototype.findIndex.call(slides, function (s) {
-      return s.classList.contains('is-active');
-    })));
-    update();
+  function find(selector) {
+    return root.querySelector(selector);
   }
 
-  function initAll() { document.querySelectorAll('[data-lh-fp]').forEach(init); }
-  initAll();
-  document.addEventListener('shopify:section:load', initAll); // customizer me reload par
+  /* ---------- 1. Image gallery ---------- */
+  function showSlide(index) {
+    if (!slides.length) return;
+    currentSlide = (index + slides.length) % slides.length; // last ke baad first
+    slides.forEach(function (slide, i) {
+      slide.classList.toggle('is-active', i === currentSlide);
+    });
+    thumbs.forEach(function (thumb, i) {
+      thumb.classList.toggle('is-active', i === currentSlide);
+    });
+  }
+
+  /* ---------- 2. Variant change (bina reload) ---------- */
+  // Jo colour aur size abhi selected hain unki list: ["Black", "M"]
+  function selectedOptions() {
+    var chosen = [];
+    root.querySelectorAll('[data-fp-option]').forEach(function (group) {
+      var input = group.querySelector('input:checked');
+      chosen.push(input ? input.value : '');
+    });
+    return chosen;
+  }
+
+  function updateVariant() {
+    var chosen = selectedOptions();
+
+    // Selected options se matching variant dhundo
+    variant = variants.filter(function (v) {
+      return v.options.join('|') === chosen.join('|');
+    })[0];
+
+    // Colour ka naam label me dikhao
+    var colourLabel = find('[data-fp-chosen]');
+    if (colourLabel) colourLabel.textContent = chosen[0];
+
+    if (!variant) return;
+
+    // Price, compare price aur Save %
+    find('[data-fp-price]').textContent = variant.price;
+    var compare = find('[data-fp-compare]');
+    var save = find('[data-fp-save]');
+    var onSale = variant.save > 0;
+    compare.hidden = !onSale;
+    save.hidden = !onSale;
+    compare.textContent = variant.compare;
+    save.textContent = 'Save ' + variant.save + '%';
+
+    // Offer cards ka "Get it for" price
+    variant.offers.forEach(function (price, i) {
+      var el = find('[data-fp-offer="' + i + '"]');
+      if (el) el.textContent = price;
+    });
+
+    // Button state
+    addBtn.disabled = !variant.available;
+    buyBtn.disabled = !variant.available;
+    find('[data-fp-add-label]').textContent = variant.available ? 'Add to cart' : 'Sold out';
+
+    // Variant ki image par jao
+    slides.forEach(function (slide, i) {
+      if (Number(slide.dataset.mediaId) === variant.mediaId) showSlide(i);
+    });
+
+    errorEl.hidden = true;
+  }
+
+  /* ---------- 3. Quantity ---------- */
+  function getQty() {
+    return parseInt(qtyInput.value, 10) || 1;
+  }
+
+  function setQty(n) {
+    if (n < 1) n = 1;
+    qtyInput.value = n < 10 ? '0' + n : String(n);
+  }
+
+  /* ---------- 4. Cart ---------- */
+  function addToCart() {
+    var item = { id: variant.id, quantity: getQty() };
+
+    // Cart drawer ka code use karo (wahi drawer kholta hai)
+    if (window.LoomhausCart) return window.LoomhausCart.add(item);
+
+    // Drawer na ho to seedha cart API
+    return fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: [item] })
+    });
+  }
+
+  function showError(message) {
+    errorEl.textContent = message;
+    errorEl.hidden = false;
+  }
+
+  /* ---------- 5. Events ---------- */
+  root.addEventListener('change', function (e) {
+    if (e.target.closest('[data-fp-option]')) updateVariant();
+  });
+
+  root.addEventListener('click', function (e) {
+    var target = e.target;
+
+    // Gallery
+    if (target.closest('[data-fp-prev]')) showSlide(currentSlide - 1);
+    if (target.closest('[data-fp-next]')) showSlide(currentSlide + 1);
+    var thumb = target.closest('[data-fp-thumb]');
+    if (thumb) showSlide(Number(thumb.dataset.index));
+
+    // Quantity
+    if (target.closest('[data-fp-minus]')) setQty(getQty() - 1);
+    if (target.closest('[data-fp-plus]')) setQty(getQty() + 1);
+
+    // Add to cart
+    if (target.closest('[data-fp-add]')) {
+      addToCart().catch(function () { showError('Could not add to cart.'); });
+    }
+
+    // Buy it now: cart me daalo, phir seedha checkout
+    if (target.closest('[data-fp-buy]')) {
+      addToCart()
+        .then(function () { window.location.href = '/checkout'; })
+        .catch(function () { showError('Could not start checkout.'); });
+    }
+
+    // Offer code copy
+    var copyBtn = target.closest('[data-fp-copy]');
+    if (copyBtn) {
+      navigator.clipboard.writeText(copyBtn.dataset.fpCopy);
+      copyBtn.classList.add('is-copied');
+      setTimeout(function () { copyBtn.classList.remove('is-copied'); }, 1500);
+    }
+  });
+
+  // Page load par pehli slide aur selected variant set karo
+  setQty(1);
+  showSlide(0);
+  updateVariant();
 })();
