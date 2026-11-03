@@ -1,0 +1,93 @@
+.lh-footer {
+  background: var(--lh-footer-bg, #292A26);
+  color: var(--lh-footer-text, #F6F1E7);
+  font-family: var(--lh-font-body);
+}
+
+.lh-footer__inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 48px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 56px 80px;
+}
+
+.lh-footer__brand {
+  flex: 1;
+}
+
+.lh-footer__logo {
+  font-family: var(--lh-font-heading);
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: -0.01em;
+  color: inherit;
+  text-decoration: none;
+}
+
+.lh-footer__logo img {
+  display: block;
+  height: auto;
+}
+
+.lh-footer__tagline {
+  margin: 12px 0 0;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.lh-footer__menu {
+  min-width: 140px;
+}
+
+/* Last column right edge par, jaise Figma me */
+.lh-footer__menu + .lh-footer__menu {
+  margin-left: 80px;
+}
+
+.lh-footer__heading {
+  margin: 0 0 14px;
+  font-family: var(--lh-font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lh-footer__menu ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lh-footer__menu a {
+  color: inherit;
+  font-size: 12px;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.lh-footer__menu a:hover,
+.lh-footer__menu a:focus-visible {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+@media (max-width: 989px) {
+  .lh-footer__inner { padding: 48px 24px; gap: 32px; }
+  .lh-footer__menu + .lh-footer__menu { margin-left: 0; }
+}
+
+@media (max-width: 749px) {
+  .lh-footer__inner {
+    flex-wrap: wrap;
+    padding: 40px 16px;
+  }
+  .lh-footer__brand { flex: 0 0 100%; }
+  .lh-footer__menu { flex: 1 1 40%; }
+}

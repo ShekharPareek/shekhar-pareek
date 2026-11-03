@@ -1,0 +1,77 @@
+{{ 'loomhaus-base.css' | asset_url | stylesheet_tag }}
+{{ 'loomhaus-footer.css' | asset_url | stylesheet_tag }}
+
+<footer
+  class="lh-section lh-footer"
+  style="--lh-footer-bg: {{ section.settings.bg_color }}; --lh-footer-text: {{ section.settings.text_color }};"
+  {{ section.shopify_attributes }}
+>
+  <div class="lh-footer__inner">
+
+    <div class="lh-footer__brand">
+      <a class="lh-footer__logo" href="{{ routes.root_url }}">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 400 | image_tag: width: section.settings.logo_width, alt: shop.name, loading: 'lazy' }}
+        {%- else -%}
+          {{ section.settings.logo_text | default: shop.name }}
+        {%- endif -%}
+      </a>
+      {%- if section.settings.tagline != blank -%}
+        <p class="lh-footer__tagline">{{ section.settings.tagline }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- for block in section.blocks -%}
+      <nav class="lh-footer__menu" aria-label="{{ block.settings.heading | escape }}" {{ block.shopify_attributes }}>
+        {%- if block.settings.heading != blank -%}
+          <h3 class="lh-footer__heading">{{ block.settings.heading }}</h3>
+        {%- endif -%}
+        {%- if block.settings.menu != blank -%}
+          <ul>
+            {%- for link in block.settings.menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </nav>
+    {%- endfor -%}
+
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Loomhaus footer",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "header", "content": "Brand" },
+    { "type": "image_picker", "id": "logo", "label": "Logo image (optional)" },
+    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 240, "step": 10, "unit": "px", "default": 120 },
+    { "type": "text", "id": "logo_text", "label": "Logo text (used if no image)", "default": "Loomhaus" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Clothes made to be worn for years, not seasons." },
+
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#292A26" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#F6F1E7" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loomhaus footer",
+      "blocks": [
+        { "type": "menu", "settings": { "heading": "Shop" } },
+        { "type": "menu", "settings": { "heading": "Help" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
