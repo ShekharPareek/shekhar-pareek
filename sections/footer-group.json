@@ -11,6 +11,7 @@
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
+    "loomhaus-cart-drawer": { "type": "loomhaus-cart-drawer", "settings": {} },
     "loomhaus_footer_7jEiGT": {
       "type": "loomhaus-footer",
       "blocks": {

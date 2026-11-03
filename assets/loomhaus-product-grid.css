@@ -153,8 +153,8 @@
 
 .lh-grid__pill {
   position: absolute;
-  left: 8px;
-  bottom: 8px;
+left: 28px;
+    bottom: 18px;
   z-index: 4;
 
   display: flex;

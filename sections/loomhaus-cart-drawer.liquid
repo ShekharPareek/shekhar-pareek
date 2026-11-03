@@ -1,68 +1,116 @@
-{% comment %} {{ 'loomhaus-cart-drawer.css' | asset_url | stylesheet_tag }} {% endcomment %}
+{{ 'loomhaus-base.css' | asset_url | stylesheet_tag }}
+{{ 'loomhaus-cart-drawer.css' | asset_url | stylesheet_tag }}
 
 {%- assign gift = section.settings.gift_product -%}
 
-<div class="lh-drawer" data-lh-drawer
+<div
+  class="lh-section lh-drawer"
+  data-lh-drawer
   data-gift-product-id="{{ gift.id }}"
   data-gift-variant-id="{{ gift.first_available_variant.id }}"
   data-trigger-color="{{ section.settings.trigger_color | downcase }}"
   data-trigger-size="{{ section.settings.trigger_size | downcase }}"
-  {{ section.shopify_attributes }}>
-
+  {{ section.shopify_attributes }}
+>
   <div class="lh-drawer__overlay" data-lh-close></div>
 
-  <aside class="lh-drawer__panel">
-    <div data-lh-content>
+  <aside class="lh-drawer__panel" role="dialog" aria-modal="true" aria-label="Cart">
+    <div class="lh-drawer__content" data-lh-content>
+
       <div class="lh-drawer__header">
-        <h2>Your cart ({{ cart.item_count }})</h2>
-        <button type="button" data-lh-close aria-label="Close cart">✕</button>
+        <h2 class="lh-drawer__title">{{ section.settings.title }} ({{ cart.item_count }})</h2>
+        <button type="button" class="lh-drawer__close" data-lh-close aria-label="Close cart">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
       </div>
 
       {%- if cart.item_count == 0 -%}
-        <p>Your cart is empty.</p>
+        <div class="lh-drawer__empty">
+          <p>{{ section.settings.empty_text }}</p>
+          <button type="button" class="lh-drawer__checkout" data-lh-close>{{ section.settings.empty_button }}</button>
+        </div>
       {%- else -%}
         <ul class="lh-drawer__items">
           {%- for item in cart.items -%}
-            <li class="lh-drawer__item">
-              {%- if item.image -%}
-                {{ item.image | image_url: width: 120 | image_tag: width: 60, alt: item.product.title }}
-              {%- endif -%}
-              <div>
-                {%- if item.properties._auto_added != blank -%}<small>AUTO-ADDED</small>{%- endif -%}
-                <p>{{ item.product.title }}</p>
-                {%- unless item.product.has_only_default_variant -%}<p>{{ item.variant.title }}</p>{%- endunless -%}
+            {%- assign is_auto = false -%}
+            {%- if item.properties._auto_added != blank -%}{%- assign is_auto = true -%}{%- endif -%}
 
-                <button type="button" data-lh-qty data-key="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}"
-                  {% if item.properties._auto_added != blank %}data-gift{% endif %}>−</button>
-                <span>{{ item.quantity }}</span>
-                <button type="button" data-lh-qty data-key="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}"
-                  {% if item.properties._auto_added != blank %}data-gift{% endif %}>+</button>
-                <button type="button" data-lh-qty data-key="{{ item.key }}" data-qty="0"
-                  {% if item.properties._auto_added != blank %}data-gift{% endif %}>Remove</button>
+            <li class="lh-drawer__item">
+              <a class="lh-drawer__thumb" href="{{ item.url }}">
+                {%- if item.image -%}
+                  {{ item.image | image_url: width: 160 | image_tag: width: 56, alt: item.product.title, loading: 'lazy' }}
+                {%- endif -%}
+              </a>
+
+              <div class="lh-drawer__info">
+                {%- if is_auto -%}
+                  <span class="lh-drawer__tag">Auto-added</span>
+                {%- endif -%}
+                <a class="lh-drawer__name" href="{{ item.url }}">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="lh-drawer__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+
+                <div class="lh-drawer__row">
+                  <div class="lh-drawer__qty">
+                    <button type="button" data-lh-qty data-key="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}"
+                      {% if is_auto %}data-gift{% endif %} aria-label="Decrease quantity">−</button>
+                    <span>{{ item.quantity }}</span>
+                    <button type="button" data-lh-qty data-key="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}"
+                      {% if is_auto %}data-gift{% endif %} aria-label="Increase quantity">+</button>
+                  </div>
+                  <button type="button" class="lh-drawer__remove" data-lh-qty data-key="{{ item.key }}" data-qty="0"
+                    {% if is_auto %}data-gift{% endif %}>Remove</button>
+                </div>
               </div>
-              <p>{{ item.final_line_price | money }}</p>
+
+              <div class="lh-drawer__price">
+                {%- if item.original_line_price > item.final_line_price -%}
+                  <s>{{ item.original_line_price | money }}</s>
+                {%- endif -%}
+                <span>{{ item.final_line_price | money }}</span>
+              </div>
             </li>
           {%- endfor -%}
         </ul>
 
         <div class="lh-drawer__footer">
-          <p data-lh-error hidden></p>
-          <p>Subtotal: <strong>{{ cart.total_price | money }}</strong></p>
+          <p class="lh-drawer__error" data-lh-error role="alert" hidden></p>
+          <div class="lh-drawer__subtotal">
+            <span>Subtotal</span>
+            <strong>{{ cart.total_price | money }}</strong>
+          </div>
+          <p class="lh-drawer__note">{{ section.settings.note }}</p>
           <form action="{{ routes.cart_url }}" method="post">
-            <button type="submit" name="checkout">Checkout</button>
+            <button type="submit" name="checkout" class="lh-drawer__checkout">
+              {{ section.settings.checkout_label }}
+              <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+                <path d="M1 6h14M10 1l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </form>
         </div>
       {%- endif -%}
+
     </div>
   </aside>
 </div>
 
-{% comment %} <script src="{{ 'loomhaus-cart.js' | asset_url }}" defer></script> {% endcomment %}
+<script src="{{ 'loomhaus-cart.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
   "name": "Loomhaus cart drawer",
   "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Your cart" },
+    { "type": "text", "id": "checkout_label", "label": "Checkout button", "default": "Checkout" },
+    { "type": "text", "id": "note", "label": "Note under subtotal", "default": "Taxes included. Shipping calculated at checkout." },
+    { "type": "text", "id": "empty_text", "label": "Empty cart text", "default": "Your cart is empty." },
+    { "type": "text", "id": "empty_button", "label": "Empty cart button", "default": "Continue shopping" },
+
+    { "type": "header", "content": "Auto-add rule" },
     { "type": "product", "id": "gift_product", "label": "Auto-added product (Soft Winter Jacket)" },
     { "type": "text", "id": "trigger_color", "label": "Trigger colour", "default": "Black" },
     { "type": "text", "id": "trigger_size", "label": "Trigger size", "default": "M" }
